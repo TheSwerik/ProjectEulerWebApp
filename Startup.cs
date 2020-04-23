@@ -23,7 +23,10 @@ namespace TestAngularApp
         {
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "../ProjectEulerWebApp-Frontend/dist"; });
+            services.AddSpaStaticFiles(configuration =>
+                                       {
+                                           configuration.RootPath = "../ProjectEulerWebApp-Frontend/dist";
+                                       });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,11 +66,9 @@ namespace TestAngularApp
 
                            spa.Options.SourcePath = "../ProjectEulerWebApp-Frontend";
 
-                           if (env.IsDevelopment())
-                           {
-                               spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
-                               spa.UseAngularCliServer(npmScript: "start");
-                           }
+                           if (!env.IsDevelopment()) return;
+                           spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
+                           spa.UseAngularCliServer(npmScript: "start");
                        });
         }
     }
