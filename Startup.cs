@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -64,6 +65,7 @@ namespace TestAngularApp
 
                            if (env.IsDevelopment())
                            {
+                               spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
                                spa.UseAngularCliServer(npmScript: "start");
                            }
                        });
