@@ -21,6 +21,18 @@
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
+        <Content Include="..\ProjectEulerWebApp-Frontend\src\tsconfig.app.json">
+          <Link>src\tsconfig.app.json</Link>
+        </Content>
+        <Content Include="..\ProjectEulerWebApp-Frontend\src\tsconfig.server.json">
+          <Link>src\tsconfig.server.json</Link>
+        </Content>
+        <Content Include="..\ProjectEulerWebApp-Frontend\src\tsconfig.spec.json">
+          <Link>src\tsconfig.spec.json</Link>
+        </Content>
+        <Content Include="..\ProjectEulerWebApp-Frontend\src\tslint.json">
+          <Link>src\tslint.json</Link>
+        </Content>
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
