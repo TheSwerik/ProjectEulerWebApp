@@ -22,7 +22,7 @@ namespace TestAngularApp
         {
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "../TestAngularApp-Web/dist"; });
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "../ProjectEulerWebApp-Frontend/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +60,7 @@ namespace TestAngularApp
                            // To learn more about options for serving an Angular SPA from ASP.NET Core,
                            // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                           spa.Options.SourcePath = "../TestAngularApp-Web";
+                           spa.Options.SourcePath = "../ProjectEulerWebApp-Frontend";
 
                            if (env.IsDevelopment())
                            {
