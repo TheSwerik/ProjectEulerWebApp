@@ -20,7 +20,6 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
         public string Description { get; }
         public bool IsSolved { get; }
         public DateTime? SolveDate { get; }
-
         public string Solution { get; }
     }
 }

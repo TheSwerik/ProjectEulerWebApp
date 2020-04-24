@@ -24,19 +24,19 @@ namespace ProjectEulerWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post()
+        public IActionResult Post(EulerProblem problem)
         {
-            var problem = new EulerProblem(
-                0,
-                "TestTitle",
-                "TestDescription",
-                DateTime.Today,
-                "42"
-            );
+            // var problem = new EulerProblem(
+            // 0,
+            // "TestTitle",
+            // "TestDescription",
+            // DateTime.Today,
+            // "42"
+            // );
 
             _context.Add(problem);
             _context.SaveChanges();
-            return Ok("EulerProblem was created: " + problem);
+            return Ok(problem);
         }
     }
 }
