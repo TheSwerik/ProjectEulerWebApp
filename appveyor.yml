@@ -12,7 +12,7 @@ configuration: Release
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - ps: npm install -g @angular/cli
+  - ps: npm install -g @angular/cli --loglevel=error
 
 before_test:
   - ps: ng test
