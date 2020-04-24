@@ -26,14 +26,13 @@ namespace ProjectEulerWebApp.Controllers
         [HttpPost]
         public IActionResult Post(EulerProblem problem)
         {
-            // var problem = new EulerProblem(
-            // 0,
-            // "TestTitle",
-            // "TestDescription",
-            // DateTime.Today,
-            // "42"
+            // var newProblem = new EulerProblem(
+                // problem.Id,
+                // problem.Title,
+                // problem.Description,
+                // problem.SolveDate,
+                // problem.Solution
             // );
-
             _context.Add(problem);
             _context.SaveChanges();
             return Ok(problem);
