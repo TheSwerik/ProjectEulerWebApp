@@ -8,20 +8,24 @@ namespace ProjectEulerWebApp.Pages
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public class ErrorModel : PageModel
     {
-        private readonly ILogger<ErrorModel> _logger;
-
         public ErrorModel(ILogger<ErrorModel> logger)
         {
-            _logger = logger;
+            Logger = logger;
         }
 
-        public string RequestId { get; set; }
+        private ILogger<ErrorModel> Logger { get; }
 
+        public string RequestId { get; set; }
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
         public void OnGet()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+        }
+
+        public void Log(string msg)
+        {
+            Logger.LogInformation(msg);
         }
     }
 }

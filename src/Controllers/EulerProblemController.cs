@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ProjectEulerWebApp.Models.Contexts;
 using ProjectEulerWebApp.Models.Entities.EulerProblem;
@@ -27,11 +26,11 @@ namespace ProjectEulerWebApp.Controllers
         public IActionResult Post(EulerProblem problem)
         {
             // var newProblem = new EulerProblem(
-                // problem.Id,
-                // problem.Title,
-                // problem.Description,
-                // problem.SolveDate,
-                // problem.Solution
+            // problem.Id,
+            // problem.Title,
+            // problem.Description,
+            // problem.SolveDate,
+            // problem.Solution
             // );
             _context.Add(problem);
             _context.SaveChanges();
