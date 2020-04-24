@@ -36,13 +36,11 @@
         <Content Include="..\ProjectEulerWebApp-Frontend\src\tslint.json">
           <Link>src\tslint.json</Link>
         </Content>
-        <Content Include="res\wwwroot\favicon.ico" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="res" />
       <Folder Include="src\Models\Entities" />
     </ItemGroup>
 

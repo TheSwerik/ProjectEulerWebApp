@@ -70,8 +70,8 @@ namespace ProjectEulerWebApp
 
                            spa.Options.SourcePath = "../ProjectEulerWebApp-Frontend";
 
-                           spa.Options.StartupTimeout = new TimeSpan(0, 0, 120);
                            if (!env.IsDevelopment()) return;
+                           spa.Options.StartupTimeout = new TimeSpan(0, 0, 120);
                            spa.UseAngularCliServer("start");
                        });
         }
