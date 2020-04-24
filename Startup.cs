@@ -1,13 +1,14 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProjectEulerWebApp.Models.Contexts;
 
-namespace TestAngularApp
+namespace ProjectEulerWebApp
 {
     public class Startup
     {
@@ -22,6 +23,10 @@ namespace TestAngularApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<ProjectEulerWebAppContext>(
+                options => options.UseNpgsql(Configuration.GetConnectionString("Default")
+                )
+            );
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
                                        {
@@ -45,18 +50,15 @@ namespace TestAngularApp
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
+            if (!env.IsDevelopment()) app.UseSpaStaticFiles();
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
                              {
                                  endpoints.MapControllerRoute(
-                                     name: "default",
-                                     pattern: "{controller}/{action=Index}/{id?}");
+                                     "default",
+                                     "{controller}/{action=Index}/{id?}");
                              });
 
             app.UseSpa(spa =>
@@ -66,9 +68,9 @@ namespace TestAngularApp
 
                            spa.Options.SourcePath = "../ProjectEulerWebApp-Frontend";
 
+                           spa.Options.StartupTimeout = new TimeSpan(0, 0, 120);
                            if (!env.IsDevelopment()) return;
-                           spa.Options.StartupTimeout = new TimeSpan(0, 0, 80);
-                           spa.UseAngularCliServer(npmScript: "start");
+                           spa.UseAngularCliServer("start");
                        });
         }
     }

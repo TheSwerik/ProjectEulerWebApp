@@ -1,6 +1,6 @@
 using System;
 
-namespace TestAngularApp
+namespace ProjectEulerWebApp
 {
     public class WeatherForecast
     {
