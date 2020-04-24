@@ -15,7 +15,7 @@ install:
   - ps: npm install -g @angular/cli --loglevel=error
 
 before_test:
-  - ps: cd $($env:application_name)-Frontend
+  - ps: cd $env:application_name-Frontend
   - ps: ng test
   - ps: cd ..
 
@@ -39,13 +39,13 @@ for:
       file_version: '$(my_version_number)'
       informational_version: '$(my_version_number)'
 
-    #    after_test:
-    #      - ps: dotnet publish "-p:PublishProfile=$($env:project_name)\$($env:project_name).csproj" -c:Release -o:Publish\bin\64bit -v:m -r:win-x64 --self-contained:true -p:PublishSingleFile=false -p:PublishTrimmed=true
-
+#    after_test:
+#      - ps: dotnet publish "-p:PublishProfile=$($env:project_name)\$($env:project_name).csproj" -c:Release -o:Publish\bin\64bit -v:m -r:win-x64 --self-contained:true -p:PublishSingleFile=false -p:PublishTrimmed=true
+#
 #    artifacts:
 #      - path: /Installer/$(application_name).exe
 #        name: WinInstaller
-
+#
 #    deploy:
 #      - provider: GitHub
 #        release: $(my_version_number)
