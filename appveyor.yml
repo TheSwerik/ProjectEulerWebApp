@@ -15,7 +15,9 @@ install:
   - ps: npm install -g @angular/cli --loglevel=error
 
 before_test:
+  - ps: cd $($env:application_name)-Frontend
   - ps: ng test
+  - ps: cd ..
 
 before_build:
   - ps: nuget restore -Verbosity quiet
