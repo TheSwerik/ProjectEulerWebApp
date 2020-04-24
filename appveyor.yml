@@ -9,8 +9,10 @@ skip_tags: true
 
 configuration: Release
 
-before_test:
+install:
   - ps: npm install -g @angular/cli
+
+before_test:
   - ps: ng test
 
 before_build:
