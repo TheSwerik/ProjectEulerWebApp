@@ -1,0 +1,30 @@
+<h1 id="tableLabel">Euler Problems</h1>
+
+<p *ngIf="!problems"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="problems">
+  <thead>
+  <tr>
+    <th>Number</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>IsSolved</th>
+    <th>SolveDate</th>
+    <th>Solution</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let problem of problems">
+    <td>{{ problem.id }}</td>
+    <td>{{ problem.title }}</td>
+    <td>{{ problem.description }}</td>
+    <td>{{ problem.isSolved }}</td>
+    <td>{{ problem.solveDate }}</td>
+    <td>{{ problem.solution }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<button class="btn btn-primary" (click)="create()">
+  Create
+</button>
