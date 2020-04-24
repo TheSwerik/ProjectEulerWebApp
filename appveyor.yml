@@ -2,6 +2,7 @@
   my_version_number: 0.2.0
   application_name: ProjectEulerWebApp
   project_name: ProjectEulerWebApp-Backend
+  nodejs_version: "LTS"
 
 version: $(my_version_number).{build}
 
@@ -10,6 +11,7 @@ skip_tags: true
 configuration: Release
 
 install:
+  - ps: Install-Product node $env:nodejs_version
   - ps: npm install -g @angular/cli
 
 before_test:
