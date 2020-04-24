@@ -7,12 +7,10 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
 import {HomeComponent} from './home/home.component';
-import {FetchDataComponent} from './fetch-data/fetch-data.component';
 import {EulerProblemComponent} from "./euler-problem/euler-problem.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
-  {path: 'fetch-data', component: FetchDataComponent},
   {path: 'Problem', component: EulerProblemComponent},
 
 ]
@@ -21,7 +19,6 @@ const dumbComponents: any[] = [
 ]
 const smartComponents: any[] = [
   HomeComponent,
-  FetchDataComponent,
   EulerProblemComponent,
 ]
 
