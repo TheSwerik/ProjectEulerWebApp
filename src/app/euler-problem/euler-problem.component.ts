@@ -18,12 +18,15 @@ export class EulerProblemComponent {
 
   create() {
     const problem: EulerProblem = {
-      id: 1,
-      title: 'Test',
-      description: 'Test Description',
-      isSolved: true,
-      solveDate: new Date('December 17, 1995 03:24:00'),
-      solution: '42'
+      id: 4,
+      title: 'Test2',
+      description: 'Test Description2',
+      // isSolved: true,
+      // solveDate: new Date('December 18, 1995 03:24:00'),
+      // solution: '43'
+      isSolved: false,
+      solveDate: null,
+      solution: null
     };
 
     this.http.post<EulerProblem>(this.EulerProblemURL, problem).subscribe(result => {
