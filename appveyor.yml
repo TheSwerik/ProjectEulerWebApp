@@ -16,6 +16,7 @@ install:
 
 before_test:
   - ps: cd $env:application_name-Frontend
+  - ps: npm install
   - ps: ng test
   - ps: cd ..
 
