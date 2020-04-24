@@ -9,9 +9,23 @@ export class FetchDataComponent {
   public forecasts: WeatherForecast[];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
+    http.get<WeatherForecast[]>(baseUrl + 'api/WeatherForecast').subscribe(result => {
       this.forecasts = result;
+      console.log(baseUrl);
+      console.log(baseUrl + 'api/WeatherForecast');
     }, error => console.error(error));
+
+    http.get(baseUrl + 'api/EulerProblem').subscribe(result => {
+      console.log(result);
+      console.log(baseUrl);
+      console.log(baseUrl + 'api/EulerProblem');
+    }, error => console.error(error));
+
+    // http.post(baseUrl + 'api/EulerProblem', null).subscribe(result => {
+    //   console.log(result);
+    //   console.log(baseUrl);
+    //   console.log(baseUrl + 'api/EulerProblem');
+    // }, error => console.error(error));
   }
 }
 
