@@ -17,7 +17,7 @@ install:
 before_test:
   - ps: cd $env:application_name-Frontend
   - ps: npm install --loglevel=error
-  - ps: ng test --loglevel=error
+  - ps: ng test --watch=false --build=false 1>log.txt 2>&1
   - ps: cd ..
 
 before_build:
