@@ -17,8 +17,7 @@ install:
 before_test:
   - ps: cd $env:application_name-Frontend
   - ps: npm install --loglevel=error
-  - ps: ng test --watch=false
-  - ps: if($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode )  }
+  - ps: ng test --watch=false --progress=false
   - ps: cd ..
 
 before_build:
