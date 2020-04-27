@@ -15,7 +15,7 @@ install:
   - npm install -g @angular/cli --loglevel=error
 
 before_test:
-  - cd $env:application_name-Frontend
+  - cd %application_name%-Frontend
   - npm install --loglevel=error
   - ng test --watch=false --progress=false
   - cd ..
