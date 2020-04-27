@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace ProjectEulerWebApp_Test
+namespace ProjectEulerWebApp
 {
     public class Tests
     {

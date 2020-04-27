@@ -12,13 +12,13 @@ configuration: Release
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - ps: npm install -g @angular/cli --loglevel=error
+  - npm install -g @angular/cli --loglevel=error
 
 before_test:
-  - ps: cd $env:application_name-Frontend
-  - ps: npm install --loglevel=error
-  - ps: ng test --watch=false --progress=false
-  - ps: cd ..
+  - cd $env:application_name-Frontend
+  - npm install --loglevel=error
+  - ng test --watch=false --progress=false
+  - cd ..
 
 before_build:
   - ps: nuget restore -Verbosity quiet
