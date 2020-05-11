@@ -15,10 +15,10 @@ export class EulerProblemComponent {
   ) {
     this.fetch();
   }
-
+  
   create() {
     const problem: EulerProblem = {
-      id: 4,
+      id: this.problems[this.problems.length - 1].id + 1,
       title: 'Test2',
       description: 'Test Description2',
       // isSolved: true,

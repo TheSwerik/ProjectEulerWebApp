@@ -10,7 +10,7 @@ namespace ProjectEulerWebApp.Models.Contexts
         {
         }
 
-        public DbSet<EulerProblem> EulerProblems { get; set; }
+        public DbSet<EulerProblem> EulerProblem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

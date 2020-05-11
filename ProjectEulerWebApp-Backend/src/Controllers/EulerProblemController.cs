@@ -19,7 +19,7 @@ namespace ProjectEulerWebApp.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_context.EulerProblems.ToList());
+            return Ok(_context.EulerProblem.ToList());
         }
 
         [HttpPost]
