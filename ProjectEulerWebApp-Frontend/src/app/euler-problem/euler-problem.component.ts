@@ -8,6 +8,9 @@ import {HttpClient} from '@angular/common/http';
 export class EulerProblemComponent {
   public problems: EulerProblem[];
   private readonly EulerProblemURL = this.baseUrl + 'api/EulerProblem';
+  private readonly GetListURL = this.EulerProblemURL + '/get-list';
+  private readonly ChangeURL = this.EulerProblemURL + '/change';
+  private readonly RemoveURL = this.EulerProblemURL + '/remove';
 
   constructor(
     private http: HttpClient,
@@ -15,7 +18,7 @@ export class EulerProblemComponent {
   ) {
     this.fetch();
   }
-  
+
   create() {
     const problem: EulerProblem = {
       id: this.problems[this.problems.length - 1].id + 1,
@@ -29,15 +32,22 @@ export class EulerProblemComponent {
       solution: null
     };
 
-    this.http.post<EulerProblem>(this.EulerProblemURL, problem).subscribe(result => {
+    this.http.post<EulerProblem>(this.ChangeURL, problem).subscribe(result => {
       console.log(result);
       this.fetch();
     }, error => console.error(error));
   }
 
   fetch() {
-    this.http.get<EulerProblem[]>(this.EulerProblemURL).subscribe(result => {
+    this.http.get<EulerProblem[]>(this.GetListURL).subscribe(result => {
       this.problems = result;
+    }, error => console.error(error));
+  }
+
+  remove(problem: EulerProblem) {
+    this.http.post<EulerProblem>(this.RemoveURL, problem).subscribe(result => {
+      console.log(result);
+      this.fetch();
     }, error => console.error(error));
   }
 }

@@ -11,6 +11,7 @@
     <th>IsSolved</th>
     <th>SolveDate</th>
     <th>Solution</th>
+    <th>Remove</th>
   </tr>
   </thead>
   <tbody>
@@ -21,6 +22,9 @@
     <td>{{ problem.isSolved }}</td>
     <td>{{ problem.solveDate }}</td>
     <td>{{ problem.solution }}</td>
+    <button class="btn btn-primary" (click)="remove(problem)">
+      remove
+    </button>
   </tr>
   </tbody>
 </table>

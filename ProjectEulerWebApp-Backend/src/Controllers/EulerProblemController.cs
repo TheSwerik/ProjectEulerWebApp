@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ProjectEulerWebApp.Models.Contexts;
 using ProjectEulerWebApp.Models.Entities.EulerProblem;
@@ -11,28 +12,27 @@ namespace ProjectEulerWebApp.Controllers
     {
         private readonly ProjectEulerWebAppContext _context;
 
-        public EulerProblemController(ProjectEulerWebAppContext context)
-        {
-            _context = context;
-        }
+        public EulerProblemController(ProjectEulerWebAppContext context) => _context = context;
+
 
         [HttpGet]
-        public IActionResult Get()
+        [Route("get-list")]
+        public IActionResult Get() => Ok(_context.EulerProblem.ToList());
+
+        [HttpPost]
+        [Route("change")]
+        public IActionResult Post(EulerProblem problem)
         {
-            return Ok(_context.EulerProblem.ToList());
+            _context.Add(problem);
+            _context.SaveChanges();
+            return Ok(problem);
         }
 
         [HttpPost]
-        public IActionResult Post(EulerProblem problem)
+        [Route("remove")]
+        public IActionResult Remove(EulerProblem problem)
         {
-            // var newProblem = new EulerProblem(
-            // problem.Id,
-            // problem.Title,
-            // problem.Description,
-            // problem.SolveDate,
-            // problem.Solution
-            // );
-            _context.Add(problem);
+            _context.Remove(_context.EulerProblem.Find(problem.Id));
             _context.SaveChanges();
             return Ok(problem);
         }
