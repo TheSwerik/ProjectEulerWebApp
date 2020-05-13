@@ -7,20 +7,19 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
 import {HomeComponent} from './home/home.component';
-import {EulerProblemComponent} from "./euler-problem/euler-problem.component";
+import {EulerProblemsComponent} from "./euler-problems/euler-problems.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
-  {path: 'Problem', component: EulerProblemComponent},
-
-]
+  {path: 'Problem', component: EulerProblemsComponent},
+];
 const dumbComponents: any[] = [
   NavMenuComponent,
-]
+];
 const smartComponents: any[] = [
   HomeComponent,
-  EulerProblemComponent,
-]
+  EulerProblemsComponent,
+];
 
 @NgModule({
   declarations: [

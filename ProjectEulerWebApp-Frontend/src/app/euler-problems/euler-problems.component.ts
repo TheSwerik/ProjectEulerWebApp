@@ -2,10 +2,10 @@ import {Component, Inject} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
-  selector: 'app-euler-problem',
-  templateUrl: './euler-problem.component.html'
+  selector: 'app-euler-problems',
+  templateUrl: './euler-problems.component.html'
 })
-export class EulerProblemComponent {
+export class EulerProblemsComponent {
   public problems: EulerProblem[];
   private readonly EulerProblemURL = this.baseUrl + 'api/EulerProblem';
   private readonly GetListURL = this.EulerProblemURL + '/get-list';
