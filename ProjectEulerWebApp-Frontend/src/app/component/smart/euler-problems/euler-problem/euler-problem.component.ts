@@ -36,7 +36,7 @@ export class EulerProblemComponent implements OnInit {
         this.problem.publishDate = new Date();
         this.problem.publishDate.setUTCHours(15);
       });
-    this.service.html('https://projecteuler.net/minimal=' + this.problem.id).subscribe(result => this.html = result.fixed(),
+    this.service.html(this.problem.id).subscribe(result => this.html = result.fixed(),
       err => this.logger.info('ERROR', err));
   }
 

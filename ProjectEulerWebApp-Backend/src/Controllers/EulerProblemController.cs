@@ -29,9 +29,9 @@ namespace ProjectEulerWebApp.Controllers
         [Route("remove/{id}")]
         public IActionResult Delete(int id) => _service.RemoveProblem(id);
 
+        //TODO remove this method
         [HttpPost]
         [Route("html")]
-        // public IActionResult Html([FromBody] string url) => _service.GetDescription(url);
-        public IActionResult Html(string url) => _service.GetDescription(url);
+        public IActionResult Html(int id) => _service.GetDescription(id);
     }
 }

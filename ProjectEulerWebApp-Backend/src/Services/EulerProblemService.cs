@@ -13,14 +13,13 @@ using HtmlAgilityPack;
 using Microsoft.EntityFrameworkCore;
 using ProjectEulerWebApp.Exceptions;
 using ProjectEulerWebApp.Models.Entities.EulerProblem;
+using ProjectEulerWebApp.Util;
 
 namespace ProjectEulerWebApp.Services
 {
-    public class EulerProblemService
+    public class EulerProblemService : ProjectEulerWebAppService
     {
-        private static readonly HttpClient Client = new HttpClient();
-        private readonly ProjectEulerWebAppContext _context;
-        public EulerProblemService(ProjectEulerWebAppContext context) => _context = context;
+        public EulerProblemService(ProjectEulerWebAppContext context) : base(context) { }
 
         public IActionResult GetList() => new OkObjectResult(_context.EulerProblem.ToList());
 
@@ -45,62 +44,7 @@ namespace ProjectEulerWebApp.Services
             return TrySaveChanges(foundProblem);
         }
 
-
-        public IActionResult GetDescription(string url)
-        {
-            var document = GetDocument(url).Result.Text;
-            document = Regex.Replace(document, "font-size:.*;", "")
-                            .Replace("<br />", "")
-                            .Trim();
-
-            foreach (var match in Regex.Matches(document, "<p>.*</p>"))
-            {
-                var matchedString = match.ToString() ?? "";
-                document = document.Replace(matchedString, matchedString.Substring(3, matchedString.Length - 7));
-            }
-
-            return new OkObjectResult(document.Trim().Insert(0, "<p>") + "</p>");
-        }
-
-        private static async Task<HtmlDocument> GetDocument(string url)
-        {
-            Console.WriteLine(url);
-            url = "https://projecteuler.net/minimal=11";
-            using var response = await Client.GetAsync(url);
-            using var content = response.Content;
-            var result = await content.ReadAsStringAsync();
-
-            var document = new HtmlDocument();
-            document.LoadHtml(result);
-            return document;
-        }
-
-        private IActionResult TrySaveChanges()
-        {
-            try
-            {
-                _context.SaveChanges();
-                return new OkResult();
-            }
-            catch (DbUpdateException e)
-            {
-                Console.WriteLine(e);
-                return new BadRequestResult();
-            }
-        }
-
-        private IActionResult TrySaveChanges(object o)
-        {
-            try
-            {
-                _context.SaveChanges();
-                return new OkObjectResult(o);
-            }
-            catch (DbUpdateException e)
-            {
-                Console.WriteLine(e);
-                return new BadRequestObjectResult(o);
-            }
-        }
+        //TODO remove this method
+        public IActionResult GetDescription(int id) => new OkObjectResult(ProjectEulerScraper.GetDescription(id));
     }
 }
