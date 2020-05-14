@@ -22,6 +22,11 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
                    .HasColumnType("TIMESTAMP(0)");
 
             builder.Property(prop => prop.Solution);
+            
+            builder.Property(prop => prop.PublishDate)
+                   .HasColumnType("TIMESTAMP(0)");
+
+            builder.Property(prop => prop.Difficulty);
         }
     }
 }

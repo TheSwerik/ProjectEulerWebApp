@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProjectEulerWebApp.Models.Contexts;
+using ProjectEulerWebApp.Services;
 
 namespace ProjectEulerWebApp
 {
@@ -33,6 +34,8 @@ namespace ProjectEulerWebApp
                                        {
                                            configuration.RootPath = "../ProjectEulerWebApp-Frontend/dist";
                                        });
+            // Services:
+            services.AddScoped<EulerProblemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

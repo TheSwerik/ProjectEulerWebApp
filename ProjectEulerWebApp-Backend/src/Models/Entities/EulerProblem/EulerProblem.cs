@@ -8,7 +8,9 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
                             string title,
                             string description,
                             DateTime? solveDate = null,
-                            string solution = null)
+                            string solution = null,
+                            DateTime? publishDate = null,
+                            int? difficulty = null)
         {
             Id = id;
             Title = title;
@@ -16,6 +18,8 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
             IsSolved = solveDate.HasValue;
             SolveDate = solveDate;
             Solution = solution;
+            PublishDate = publishDate;
+            Difficulty = difficulty;
         }
 
         public int Id { get; }
@@ -24,6 +28,8 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
         public bool IsSolved { get; }
         public DateTime? SolveDate { get; }
         public string Solution { get; }
+        public DateTime? PublishDate { get; }
+        public int? Difficulty { get; }
 
         public override string ToString()
         {
@@ -32,7 +38,9 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
                    "Description: " + Description + "\t" +
                    "IsSolved: " + IsSolved + "\t" +
                    "SolveDate: " + SolveDate + "\t" +
-                   "Solution: " + Solution;
+                   "Solution: " + Solution + "\t" +
+                   "PublishDate: " + PublishDate + "\t" +
+                   "Difficulty: " + Difficulty;
         }
     }
 }

@@ -11,6 +11,7 @@ export class EulerProblemService {
   private readonly CreateURL = this.EulerProblemURL + 'create/';
   private readonly GetURL = this.EulerProblemURL + 'get/';
   private readonly RemoveURL = this.EulerProblemURL + 'remove/';
+  private readonly HTMLURL = this.EulerProblemURL + 'html/';
 
   constructor(
     private http: HttpClient,
@@ -32,5 +33,9 @@ export class EulerProblemService {
 
   remove(problem: EulerProblemDTO): Observable<EulerProblemDTO> {
     return this.http.post<EulerProblemDTO>(this.RemoveURL, problem);
+  }
+
+  html(): Observable<string> {
+    return this.http.get<string>(this.HTMLURL);
   }
 }

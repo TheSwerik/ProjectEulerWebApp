@@ -13,6 +13,7 @@ import {first, map, switchMap} from 'rxjs/operators';
 export class EulerProblemComponent implements OnInit {
 
   problem: EulerProblemDTO;
+  html: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,6 +21,7 @@ export class EulerProblemComponent implements OnInit {
     private logger: NGXLogger,
   ) {
     this.problem = new EulerProblemDTO();
+    this.html = '';
   }
 
   ngOnInit() {
@@ -32,8 +34,12 @@ export class EulerProblemComponent implements OnInit {
         this.logger.info(this.problem = problem);
         this.problem.publishDate = new Date();
         this.problem.publishDate.setUTCHours(15);
-        console.log(this.problem.description);
       });
+    this.service.html().subscribe(result => {
+      // this.html = result.fixed();
+      console.log(result);
+      console.log(result.valueOf());
+    });
   }
 
 }

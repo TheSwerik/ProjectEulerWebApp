@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using ProjectEulerWebApp.Models.Contexts;
 using ProjectEulerWebApp.Models.Entities.EulerProblem;
+using ProjectEulerWebApp.Services;
 
 namespace ProjectEulerWebApp.Controllers
 {
@@ -11,13 +11,22 @@ namespace ProjectEulerWebApp.Controllers
     public class EulerProblemController : Controller
     {
         private readonly ProjectEulerWebAppContext _context;
+        private readonly EulerProblemService _service;
 
-        public EulerProblemController(ProjectEulerWebAppContext context) => _context = context;
+        public EulerProblemController(ProjectEulerWebAppContext context, EulerProblemService service)
+        {
+            _context = context;
+            _service = service;
+        }
 
 
         [HttpGet]
         [Route("get")]
         public IActionResult Get() => Ok(_context.EulerProblem.ToList());
+
+        [HttpGet]
+        [Route("html")]
+        public IActionResult Html() => _service.GetDescription();
 
         [HttpGet]
         [Route("get/{id}")]

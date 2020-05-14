@@ -58,6 +58,10 @@ export class EulerProblemsComponent implements OnInit {
       // isSolved: true,
       // solveDate: new Date('December 18, 1995 03:24:00'),
       // solution: '43',
+      publishDate: null,
+      difficulty: null
+      // publishDate: new Date(),
+      // difficulty: 10
     };
   }
 
