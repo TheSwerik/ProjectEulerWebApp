@@ -10,10 +10,10 @@ export class DatePipe implements PipeTransform {
     }
     return this.day(date.getUTCDay()) + ', ' + this.date(date.getUTCDate()) + ' of ' +
       this.month(date.getUTCMonth()) + ' ' + date.getUTCFullYear() + ', ' +
-      this.time(date.getUTCHours()) + ':' + this.time(date.getUTCMinutes());
+      this.time(date.getUTCHours(), date.getUTCMinutes());
   }
 
-  date(date: number){
+  date(date: number) {
     switch (date % 10) {
       case 1: return date + 'st';
       case 2: return date + 'nd';
@@ -22,7 +22,7 @@ export class DatePipe implements PipeTransform {
     }
   }
 
-  day(day: number){
+  day(day: number) {
     switch (day) {
       case 0: return 'Sunday';
       case 1: return 'Monday';
@@ -35,7 +35,7 @@ export class DatePipe implements PipeTransform {
     }
   }
 
-  month(month: number){
+  month(month: number) {
     switch (month) {
       case 0: return 'January';
       case 1: return 'February';
@@ -53,7 +53,7 @@ export class DatePipe implements PipeTransform {
     }
   }
 
-  time(time: number) {
-    return time < 10 ? '0' + time : time;
+  time(hours: number, minutes: number) {
+    return (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes);
   }
 }
