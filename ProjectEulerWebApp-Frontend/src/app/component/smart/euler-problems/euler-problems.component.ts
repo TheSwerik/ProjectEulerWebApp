@@ -36,7 +36,7 @@ export class EulerProblemsComponent implements OnInit {
   }
 
   remove(problem: EulerProblemDTO) {
-    this.service.remove(problem)
+    this.service.remove(problem.id)
       .pipe(
         first(removedProblem => {
           this.logger.info('removed problem:', removedProblem);

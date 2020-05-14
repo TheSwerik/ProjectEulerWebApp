@@ -25,12 +25,13 @@ namespace ProjectEulerWebApp.Controllers
         [Route("create")]
         public IActionResult Post(EulerProblem problem) => _service.CreateProblem(problem);
 
-        [HttpPost]
-        [Route("remove")]
-        public IActionResult Remove(EulerProblem problem) => _service.RemoveProblem(problem);
+        [HttpDelete]
+        [Route("remove/{id}")]
+        public IActionResult Delete(int id) => _service.RemoveProblem(id);
 
         [HttpPost]
         [Route("html")]
+        // public IActionResult Html([FromBody] string url) => _service.GetDescription(url);
         public IActionResult Html(string url) => _service.GetDescription(url);
     }
 }

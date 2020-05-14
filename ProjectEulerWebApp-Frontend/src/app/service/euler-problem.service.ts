@@ -31,11 +31,11 @@ export class EulerProblemService {
     return this.http.get<EulerProblemDTO>(this.GetURL + id);
   }
 
-  remove(problem: EulerProblemDTO): Observable<EulerProblemDTO> {
-    return this.http.post<EulerProblemDTO>(this.RemoveURL, problem);
+  remove(id: number): Observable<EulerProblemDTO> {
+    return this.http.delete<EulerProblemDTO>(this.RemoveURL + id);
   }
 
   html(url: string): Observable<string> {
-    return this.http.post<string>(this.HTMLURL, url, {responseType: 'text' as 'json'});
+    return this.http.post<string>(this.HTMLURL, '"' + url + '"', {responseType: 'text' as 'json'});
   }
 }

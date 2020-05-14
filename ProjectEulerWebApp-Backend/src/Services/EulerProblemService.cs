@@ -37,12 +37,12 @@ namespace ProjectEulerWebApp.Services
             return TrySaveChanges(problem);
         }
 
-        public IActionResult RemoveProblem(EulerProblem problem)
+        public IActionResult RemoveProblem(int id)
         {
-            var foundProblem = _context.EulerProblem.Find(problem.Id);
-            if (foundProblem == null) return new NotFoundObjectResult($"EulerProblem with number {problem.Id} not found.");
+            var foundProblem = _context.EulerProblem.Find(id);
+            if (foundProblem == null) return new NotFoundObjectResult($"EulerProblem with number {id} not found.");
             _context.Remove(foundProblem);
-            return TrySaveChanges(problem);
+            return TrySaveChanges(foundProblem);
         }
 
 
@@ -55,6 +55,8 @@ namespace ProjectEulerWebApp.Services
 
         private static async Task<HtmlDocument> GetDocument(string url)
         {
+            Console.WriteLine(url);
+            url = "https://projecteuler.net/minimal=11";
             using var response = await Client.GetAsync(url);
             using var content = response.Content;
             var result = await content.ReadAsStringAsync();
@@ -77,6 +79,7 @@ namespace ProjectEulerWebApp.Services
                 return new BadRequestResult();
             }
         }
+
         private IActionResult TrySaveChanges(object o)
         {
             try
