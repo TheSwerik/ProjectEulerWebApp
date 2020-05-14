@@ -5,10 +5,10 @@ import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 
 import {AppComponent} from './app.component';
-import {NavMenuComponent} from './nav-menu/nav-menu.component';
-import {HomeComponent} from './home/home.component';
-import {EulerProblemsComponent} from './euler-problems/euler-problems.component';
-import {EulerProblemComponent} from './euler-problems/euler-problem/euler-problem.component';
+import {NavMenuComponent} from "./component/dumb/nav-menu/nav-menu.component";
+import {EulerProblemComponent} from "./component/smart/euler-problems/euler-problem/euler-problem.component";
+import {EulerProblemsComponent} from "./component/smart/euler-problems/euler-problems.component";
+import {HomeComponent} from "./component/dumb/home/home.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -17,9 +17,9 @@ const routes: Routes = [
 ];
 const dumbComponents: any[] = [
   NavMenuComponent,
+  HomeComponent,
 ];
 const smartComponents: any[] = [
-  HomeComponent,
   EulerProblemsComponent,
   EulerProblemComponent,
 ];

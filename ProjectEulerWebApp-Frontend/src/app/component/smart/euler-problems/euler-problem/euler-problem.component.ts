@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
+import {EulerProblemDTO} from '../../../../service/model/eulerProblem.dto';
 
 @Component({
   selector: 'app-euler-problem',
@@ -8,13 +9,16 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class EulerProblemComponent implements OnInit {
 
-  id = 'NULL';
+  problem: EulerProblemDTO;
 
   constructor(private route: ActivatedRoute) {
+    this.problem = new EulerProblemDTO();
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => this.id = params.get('id'));
+    this.route.paramMap.subscribe(params => {
+      this.problem.id = +params.get('id');
+    });
   }
 
 }
