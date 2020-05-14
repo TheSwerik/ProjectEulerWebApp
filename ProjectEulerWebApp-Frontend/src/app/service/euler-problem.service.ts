@@ -35,7 +35,7 @@ export class EulerProblemService {
     return this.http.post<EulerProblemDTO>(this.RemoveURL, problem);
   }
 
-  html(): Observable<string> {
-    return this.http.get<string>(this.HTMLURL, {responseType: 'text' as 'json'});
+  html(url: string): Observable<string> {
+    return this.http.post<string>(this.HTMLURL, url, {responseType: 'text' as 'json'});
   }
 }

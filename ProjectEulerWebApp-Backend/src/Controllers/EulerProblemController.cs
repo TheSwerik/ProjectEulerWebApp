@@ -29,7 +29,7 @@ namespace ProjectEulerWebApp.Controllers
         [Route("remove")]
         public IActionResult Remove(EulerProblem problem) => _service.RemoveProblem(problem);
 
-        [HttpGet]
+        [HttpPost]
         [Route("html")]
         public IActionResult Html(string url) => _service.GetDescription(url);
     }
