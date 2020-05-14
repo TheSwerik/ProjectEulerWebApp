@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {EulerProblemDTO} from '../../../../service/model/eulerProblem.dto';
+import {EulerProblemDTO} from '../../../../service/model/euler-problem.dto';
+import {EulerProblemService} from '../../../../service/euler-problem.service';
+import {NGXLogger} from 'ngx-logger';
+import {first, map, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-euler-problem',
@@ -11,14 +14,21 @@ export class EulerProblemComponent implements OnInit {
 
   problem: EulerProblemDTO;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private route: ActivatedRoute,
+    private service: EulerProblemService,
+    private logger: NGXLogger,
+  ) {
     this.problem = new EulerProblemDTO();
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.problem.id = +params.get('id');
-    });
+    this.route.paramMap
+      .pipe(
+        first(),
+        switchMap(params => this.service.get(+params.get('id')))
+      )
+      .subscribe(problem => this.logger.info(this.problem = problem));
   }
 
 }

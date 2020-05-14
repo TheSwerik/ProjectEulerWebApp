@@ -16,11 +16,15 @@ namespace ProjectEulerWebApp.Controllers
 
 
         [HttpGet]
-        [Route("get-list")]
+        [Route("get")]
         public IActionResult Get() => Ok(_context.EulerProblem.ToList());
 
+        [HttpGet]
+        [Route("get/{id}")]
+        public IActionResult Get(int id) => Ok(_context.EulerProblem.Find(id));
+
         [HttpPost]
-        [Route("change")]
+        [Route("create")]
         public IActionResult Post(EulerProblem problem)
         {
             _context.Add(problem);
