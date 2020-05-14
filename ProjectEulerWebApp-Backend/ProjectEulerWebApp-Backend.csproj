@@ -12,9 +12,11 @@
         <BuildServerSideRenderer>false</BuildServerSideRenderer>
         <RootNamespace>ProjectEulerWebApp</RootNamespace>
         <AssemblyName>ProjectEulerWebApp</AssemblyName>
+        <LangVersion>8</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="HtmlAgilityPack" Version="1.11.23" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.3" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.3" />

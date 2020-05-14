@@ -6,37 +6,36 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectEulerWebApp.Models.Contexts;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using HtmlAgilityPack;
+using ProjectEulerWebApp.Exceptions;
 
 namespace ProjectEulerWebApp.Services
 {
     public class EulerProblemService
     {
+        private static readonly HttpClient Client = new HttpClient();
         private readonly ProjectEulerWebAppContext _context;
         public EulerProblemService(ProjectEulerWebAppContext context) => _context = context;
-        public IActionResult GetDescription()
+
+        public IActionResult GetDescription(string url)
         {
-            const string url = "https://projecteuler.net/minimal=11";
-            var request = (HttpWebRequest) WebRequest.Create(url);
-            var response = (HttpWebResponse) request.GetResponse();
+            var document = GetDocument(url).Result.Text;
+            return new OkObjectResult(Regex.Replace(document, "font-size:.*;", "")
+                                           .Replace("<br />", ""));
+        }
 
-            if (response.StatusCode != HttpStatusCode.OK) return null;
-            var receiveStream = response.GetResponseStream() ?? throw new ArgumentNullException();
-            StreamReader readStream = null;
+        private static async Task<HtmlDocument> GetDocument(string url)
+        {
+            using var response = await Client.GetAsync(url);
+            using var content = response.Content;
+            var result = await content.ReadAsStringAsync();
 
-            readStream = string.IsNullOrWhiteSpace(response.CharacterSet)
-                             ? new StreamReader(receiveStream)
-                             : new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-
-            var data = readStream.ReadToEnd();
-
-            response.Close();
-            readStream.Close();
-
-            data = data.Replace("<br />", "");
-            
-            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\html.html", data);
-            
-            return new OkObjectResult(data);
+            var document = new HtmlDocument();
+            document.LoadHtml(result);
+            return document;
         }
     }
 }
