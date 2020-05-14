@@ -8,7 +8,7 @@ import {first, map, switchMap} from 'rxjs/operators';
 @Component({
   selector: 'app-euler-problem',
   templateUrl: './euler-problem.component.html',
-  styleUrls: ['./euler-problem.component.css']
+  styleUrls: ['./euler-problem.component.scss']
 })
 export class EulerProblemComponent implements OnInit {
 
@@ -32,6 +32,7 @@ export class EulerProblemComponent implements OnInit {
         this.logger.info(this.problem = problem);
         this.problem.publishDate = new Date();
         this.problem.publishDate.setUTCHours(15);
+        console.log(this.problem.description);
       });
   }
 
