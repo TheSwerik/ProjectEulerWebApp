@@ -49,8 +49,17 @@ namespace ProjectEulerWebApp.Services
         public IActionResult GetDescription(string url)
         {
             var document = GetDocument(url).Result.Text;
-            return new OkObjectResult(Regex.Replace(document, "font-size:.*;", "")
-                                           .Replace("<br />", ""));
+            document = Regex.Replace(document, "font-size:.*;", "")
+                            .Replace("<br />", "")
+                            .Trim();
+
+            foreach (var match in Regex.Matches(document, "<p>.*</p>"))
+            {
+                var matchedString = match.ToString() ?? "";
+                document = document.Replace(matchedString, matchedString.Substring(3, matchedString.Length - 7));
+            }
+
+            return new OkObjectResult(document.Trim().Insert(0, "<p>") + "</p>");
         }
 
         private static async Task<HtmlDocument> GetDocument(string url)
