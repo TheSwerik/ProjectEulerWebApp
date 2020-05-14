@@ -10,44 +10,27 @@ namespace ProjectEulerWebApp.Controllers
     [Route("api/[controller]")]
     public class EulerProblemController : Controller
     {
-        private readonly ProjectEulerWebAppContext _context;
         private readonly EulerProblemService _service;
-
-        public EulerProblemController(ProjectEulerWebAppContext context, EulerProblemService service)
-        {
-            _context = context;
-            _service = service;
-        }
-
+        public EulerProblemController(EulerProblemService service) => _service = service;
 
         [HttpGet]
         [Route("get")]
-        public IActionResult Get() => Ok(_context.EulerProblem.ToList());
-
-        [HttpGet]
-        [Route("html")]
-        public IActionResult Html() => _service.GetDescription();
+        public IActionResult GetList() => _service.GetList();
 
         [HttpGet]
         [Route("get/{id}")]
-        public IActionResult Get(int id) => Ok(_context.EulerProblem.Find(id));
+        public IActionResult Get(int id) => _service.Get(id);
 
         [HttpPost]
         [Route("create")]
-        public IActionResult Post(EulerProblem problem)
-        {
-            _context.Add(problem);
-            _context.SaveChanges();
-            return Ok(problem);
-        }
+        public IActionResult Post(EulerProblem problem) => _service.CreateProblem(problem);
 
         [HttpPost]
         [Route("remove")]
-        public IActionResult Remove(EulerProblem problem)
-        {
-            _context.Remove(_context.EulerProblem.Find(problem.Id));
-            _context.SaveChanges();
-            return Ok(problem);
-        }
+        public IActionResult Remove(EulerProblem problem) => _service.RemoveProblem(problem);
+
+        [HttpGet]
+        [Route("html")]
+        public IActionResult Html(string url) => _service.GetDescription(url);
     }
 }

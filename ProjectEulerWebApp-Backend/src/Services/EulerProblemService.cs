@@ -10,7 +10,9 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using Microsoft.EntityFrameworkCore;
 using ProjectEulerWebApp.Exceptions;
+using ProjectEulerWebApp.Models.Entities.EulerProblem;
 
 namespace ProjectEulerWebApp.Services
 {
@@ -19,6 +21,30 @@ namespace ProjectEulerWebApp.Services
         private static readonly HttpClient Client = new HttpClient();
         private readonly ProjectEulerWebAppContext _context;
         public EulerProblemService(ProjectEulerWebAppContext context) => _context = context;
+
+        public IActionResult GetList() => new OkObjectResult(_context.EulerProblem.ToList());
+
+        public IActionResult Get(int id)
+        {
+            var problem = _context.EulerProblem.Find(id);
+            if (problem == null) return new NotFoundObjectResult($"EulerProblem with number {id} not found.");
+            return new OkObjectResult(problem);
+        }
+
+        public IActionResult CreateProblem(EulerProblem problem)
+        {
+            _context.Add(problem);
+            return TrySaveChanges(problem);
+        }
+
+        public IActionResult RemoveProblem(EulerProblem problem)
+        {
+            var foundProblem = _context.EulerProblem.Find(problem.Id);
+            if (foundProblem == null) return new NotFoundObjectResult($"EulerProblem with number {problem.Id} not found.");
+            _context.Remove(foundProblem);
+            return TrySaveChanges(problem);
+        }
+
 
         public IActionResult GetDescription(string url)
         {
@@ -36,6 +62,33 @@ namespace ProjectEulerWebApp.Services
             var document = new HtmlDocument();
             document.LoadHtml(result);
             return document;
+        }
+
+        private IActionResult TrySaveChanges()
+        {
+            try
+            {
+                _context.SaveChanges();
+                return new OkResult();
+            }
+            catch (DbUpdateException e)
+            {
+                Console.WriteLine(e);
+                return new BadRequestResult();
+            }
+        }
+        private IActionResult TrySaveChanges(object o)
+        {
+            try
+            {
+                _context.SaveChanges();
+                return new OkObjectResult(o);
+            }
+            catch (DbUpdateException e)
+            {
+                Console.WriteLine(e);
+                return new BadRequestObjectResult(o);
+            }
         }
     }
 }
