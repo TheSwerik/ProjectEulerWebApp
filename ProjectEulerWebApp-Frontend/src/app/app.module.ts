@@ -7,12 +7,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from './app.component';
 import {NavMenuComponent} from './nav-menu/nav-menu.component';
 import {HomeComponent} from './home/home.component';
-import {EulerProblemsComponent} from "./euler-problems/euler-problems.component";
-import { EulerProblemComponent } from './euler-problems/euler-problem/euler-problem.component';
+import {EulerProblemsComponent} from './euler-problems/euler-problems.component';
+import {EulerProblemComponent} from './euler-problems/euler-problem/euler-problem.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
   {path: 'Problem', component: EulerProblemsComponent},
+  {path: 'Problem/:id', component: EulerProblemComponent}
 ];
 const dumbComponents: any[] = [
   NavMenuComponent,
@@ -20,6 +21,7 @@ const dumbComponents: any[] = [
 const smartComponents: any[] = [
   HomeComponent,
   EulerProblemsComponent,
+  EulerProblemComponent,
 ];
 
 @NgModule({
@@ -27,7 +29,6 @@ const smartComponents: any[] = [
     AppComponent,
     dumbComponents,
     smartComponents,
-    EulerProblemComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),

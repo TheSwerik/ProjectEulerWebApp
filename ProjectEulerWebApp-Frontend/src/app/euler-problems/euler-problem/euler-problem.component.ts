@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-euler-problem',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EulerProblemComponent implements OnInit {
 
-  constructor() { }
+  id = 'NULL';
 
-  ngOnInit(): void {
+  constructor(private route: ActivatedRoute) {
+  }
+
+  ngOnInit() {
+    this.route.paramMap.subscribe(params => this.id = params.get('id'));
   }
 
 }
