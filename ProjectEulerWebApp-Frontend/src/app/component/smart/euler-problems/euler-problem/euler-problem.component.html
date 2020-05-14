@@ -1,1 +1,18 @@
-<p>euler-problem {{problem.id}} works!</p>
+<h1>
+  <a href="https://projecteuler.net/problem={{problem.id}}">
+    {{problem.title}}
+  </a>
+</h1>
+<h2>
+  Problem {{problem.id}}
+</h2>
+<div class="card card-body">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{problem.description}}</li>
+    <li class="list-group-item">
+      Published on {{problem.publishDate | date}}
+      <br>
+      Difficulty: {{problem.difficulty | difficulty}}
+    </li>
+  </ul>
+</div>

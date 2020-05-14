@@ -10,6 +10,8 @@ import {EulerProblemComponent} from './component/smart/euler-problems/euler-prob
 import {EulerProblemsComponent} from './component/smart/euler-problems/euler-problems.component';
 import {HomeComponent} from './component/dumb/home/home.component';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
+import {DifficultyPipe} from './util/difficulty.pipe';
+import {DatePipe} from './util/date.pipe';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -25,6 +27,8 @@ const thirdPartyModules: any[] = [
 const dumbComponents: any[] = [
   NavMenuComponent,
   HomeComponent,
+  DifficultyPipe,
+  DatePipe,
 ];
 const smartComponents: any[] = [
   EulerProblemsComponent,

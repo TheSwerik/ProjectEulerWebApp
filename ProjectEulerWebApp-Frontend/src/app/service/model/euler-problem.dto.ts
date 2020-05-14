@@ -5,4 +5,6 @@
   isSolved: boolean;
   solveDate: Date;
   solution: string;
+  publishDate: Date;
+  difficulty: number;
 }

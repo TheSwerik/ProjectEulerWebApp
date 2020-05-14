@@ -28,7 +28,11 @@ export class EulerProblemComponent implements OnInit {
         first(),
         switchMap(params => this.service.get(+params.get('id')))
       )
-      .subscribe(problem => this.logger.info(this.problem = problem));
+      .subscribe(problem => {
+        this.logger.info(this.problem = problem);
+        this.problem.publishDate = new Date();
+        this.problem.publishDate.setUTCHours(15);
+      });
   }
 
 }
