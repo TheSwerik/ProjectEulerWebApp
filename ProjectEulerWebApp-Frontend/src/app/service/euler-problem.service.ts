@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EulerProblemDTO} from './model/euler-problem.dto';
 import {Observable} from 'rxjs';
 
@@ -36,6 +36,6 @@ export class EulerProblemService {
   }
 
   html(): Observable<string> {
-    return this.http.get<string>(this.HTMLURL);
+    return this.http.get<string>(this.HTMLURL, {responseType: 'text' as 'json'});
   }
 }

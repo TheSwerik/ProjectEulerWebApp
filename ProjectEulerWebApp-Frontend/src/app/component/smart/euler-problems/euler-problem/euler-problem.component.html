@@ -8,8 +8,7 @@
 </h2>
 <div class="card card-body">
   <ul class="list-group list-group-flush">
-    <li class="list-group-item description" [innerHTML]="problem.description"></li>
-    <li class="list-group-item description" [innerHTML]="html.value"></li>
+    <li class="list-group-item description" [innerHTML]="html | safeHtml"></li>
     <li class="list-group-item">
       Published on {{problem.publishDate | date}}
       <br>

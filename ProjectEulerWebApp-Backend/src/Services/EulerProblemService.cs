@@ -31,6 +31,10 @@ namespace ProjectEulerWebApp.Services
 
             response.Close();
             readStream.Close();
+
+            data = data.Replace("<br />", "");
+            
+            File.WriteAllText(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\html.html", data);
             
             return new OkObjectResult(data);
         }

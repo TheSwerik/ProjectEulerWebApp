@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EulerProblemDTO} from '../../../../service/model/euler-problem.dto';
 import {EulerProblemService} from '../../../../service/euler-problem.service';
@@ -8,7 +8,8 @@ import {first, map, switchMap} from 'rxjs/operators';
 @Component({
   selector: 'app-euler-problem',
   templateUrl: './euler-problem.component.html',
-  styleUrls: ['./euler-problem.component.scss']
+  styleUrls: ['./euler-problem.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class EulerProblemComponent implements OnInit {
 
@@ -35,11 +36,8 @@ export class EulerProblemComponent implements OnInit {
         this.problem.publishDate = new Date();
         this.problem.publishDate.setUTCHours(15);
       });
-    this.service.html().subscribe(result => {
-      // this.html = result.fixed();
-      console.log(result);
-      console.log(result.valueOf());
-    });
+    this.service.html().subscribe(result => this.html = result.fixed(),
+      err => this.logger.info('ERROR', err));
   }
 
 }

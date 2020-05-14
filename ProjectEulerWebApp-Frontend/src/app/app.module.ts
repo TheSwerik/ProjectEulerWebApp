@@ -12,6 +12,7 @@ import {HomeComponent} from './component/dumb/home/home.component';
 import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {DifficultyPipe} from './util/difficulty.pipe';
 import {DatePipe} from './util/date.pipe';
+import {SafeHtmlPipe} from './util/safe-html.pipe';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -29,6 +30,7 @@ const dumbComponents: any[] = [
   HomeComponent,
   DifficultyPipe,
   DatePipe,
+  SafeHtmlPipe,
 ];
 const smartComponents: any[] = [
   EulerProblemsComponent,
