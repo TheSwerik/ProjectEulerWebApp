@@ -21,6 +21,7 @@ export class EulerProblemComponent implements OnInit {
     private logger: NGXLogger,
   ) {
     this.problem = new EulerProblemDTO();
+    this.problem.description = '';
   }
 
   ngOnInit() {

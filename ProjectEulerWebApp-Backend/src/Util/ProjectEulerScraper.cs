@@ -40,9 +40,7 @@ namespace ProjectEulerWebApp.Util
         public static string GetDescription(int id)
         {
             var document = GetDocument(EulerDescriptionURL + id).Result.Text;
-            document = Regex.Replace(document, "font-size:.*;", "")
-                            // .Replace("<br />", "")
-                            .Trim();
+            document = Regex.Replace(document, "font-size:.*;", "").Trim();
 
             foreach (var match in Regex.Matches(document, "<p>.*</p>"))
             {
