@@ -70,7 +70,7 @@ namespace ProjectEulerWebApp.Util
         }
 
         public static async Task<bool> IsAvailable(string url)
-        {
+        { //TODO Compare if you get 302
             using var response = await Client.GetAsync(url);
             return response.IsSuccessStatusCode;
         }
