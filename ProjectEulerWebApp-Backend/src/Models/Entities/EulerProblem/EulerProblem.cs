@@ -24,12 +24,12 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
 
         public int Id { get; }
         public string Title { get; set; }
-        public string Description { get;  set; }
-        public bool IsSolved { get;  set; }
-        public DateTime? SolveDate { get;  set; }
-        public string Solution { get;  set; }
-        public DateTime? PublishDate { get;  set; }
-        public int? Difficulty { get;  set; }
+        public string Description { get; set; }
+        public bool IsSolved { get; set; }
+        public DateTime? SolveDate { get; set; }
+        public string Solution { get; set; }
+        public DateTime? PublishDate { get; set; }
+        public int? Difficulty { get; set; }
 
         public override string ToString()
         {

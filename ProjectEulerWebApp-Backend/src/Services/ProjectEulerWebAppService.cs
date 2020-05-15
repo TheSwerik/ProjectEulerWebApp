@@ -8,7 +8,7 @@ namespace ProjectEulerWebApp.Services
     public abstract class ProjectEulerWebAppService
     {
         protected readonly ProjectEulerWebAppContext Context;
-        protected  ProjectEulerWebAppService(ProjectEulerWebAppContext context) => Context = context;
+        protected ProjectEulerWebAppService(ProjectEulerWebAppContext context) { Context = context; }
 
         protected IActionResult TrySaveChanges()
         {

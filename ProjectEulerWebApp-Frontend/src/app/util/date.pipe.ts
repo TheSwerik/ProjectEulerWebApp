@@ -4,11 +4,12 @@
   name: 'date',
 })
 export class DatePipe implements PipeTransform {
-  transform(date: Date): string {
-    if (date === null || date === undefined) {
+  transform(input: Date): string {
+    if (input === null || input === undefined) {
       return 'Unknown';
     }
-    return this.day(date.getUTCDay()) + ', ' + this.date(date.getUTCDate()) + ' of ' +
+    const date = new Date(Date.parse(input.toString()));
+    return this.day(date.getDay()) + ', ' + this.date(date.getUTCDate()) + ' of ' +
       this.month(date.getUTCMonth()) + ' ' + date.getUTCFullYear() + ', ' +
       this.time(date.getUTCHours(), date.getUTCMinutes());
   }
