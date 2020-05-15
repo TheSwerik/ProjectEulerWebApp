@@ -14,7 +14,6 @@ import {first, map, switchMap} from 'rxjs/operators';
 export class EulerProblemComponent implements OnInit {
 
   problem: EulerProblemDTO;
-  html: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,7 +21,6 @@ export class EulerProblemComponent implements OnInit {
     private logger: NGXLogger,
   ) {
     this.problem = new EulerProblemDTO();
-    this.html = '';
   }
 
   ngOnInit() {
@@ -31,14 +29,14 @@ export class EulerProblemComponent implements OnInit {
         first(),
         switchMap(params => this.service.get(+params.get('id')))
       )
-      .subscribe(problem => {
-        this.logger.info(this.problem = problem);
-        this.problem.publishDate = new Date();
-        this.problem.publishDate.setUTCHours(15);
-      });
-    // this.service.html(this.problem.id).subscribe(result => this.html = result.fixed(),
-    this.service.html(11).subscribe(result => this.html = result.fixed(),
-      err => this.logger.info('ERROR', err));
+      .subscribe(problem => this.logger.info(this.problem = problem));
+  }
+
+  refresh() {
+    this.service.refresh(this.problem.id).subscribe(result =>
+        this.logger.info(this.problem = result),
+      err => this.logger.info('ERROR', err)
+    );
   }
 
 }

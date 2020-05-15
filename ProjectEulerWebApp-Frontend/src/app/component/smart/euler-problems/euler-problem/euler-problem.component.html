@@ -5,10 +5,11 @@
 </h1>
 <h2>
   Problem {{problem.id}}
+  <button style="align-self: end" (click)="refresh()">Refresh</button>
 </h2>
 <div class="card card-body">
   <ul class="list-group list-group-flush">
-    <li class="list-group-item description" [innerHTML]="html | safeHtml"></li>
+    <li class="list-group-item description" [innerHTML]="problem.description | safeHtml"></li>
     <li class="list-group-item">
       Published on {{problem.publishDate | date}}
       <br>

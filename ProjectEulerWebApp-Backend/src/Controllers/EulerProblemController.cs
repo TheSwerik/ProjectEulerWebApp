@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using System.Net.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProjectEulerWebApp.Models.Contexts;
 using ProjectEulerWebApp.Models.Entities.EulerProblem;
@@ -29,9 +31,8 @@ namespace ProjectEulerWebApp.Controllers
         [Route("remove/{id}")]
         public IActionResult Delete(int id) => _service.RemoveProblem(id);
 
-        //TODO remove this method
-        [HttpPost]
-        [Route("html")]
-        public IActionResult Html(string id) => _service.GetDescription(int.Parse(id));
+        [HttpPut]
+        [Route("refresh")]
+        public IActionResult Refresh(object id) => _service.Refresh(id.ToString());
     }
 }

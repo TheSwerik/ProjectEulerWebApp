@@ -7,14 +7,14 @@ namespace ProjectEulerWebApp.Services
 {
     public abstract class ProjectEulerWebAppService
     {
-        protected readonly ProjectEulerWebAppContext _context;
-        protected  ProjectEulerWebAppService(ProjectEulerWebAppContext context) => _context = context;
+        protected readonly ProjectEulerWebAppContext Context;
+        protected  ProjectEulerWebAppService(ProjectEulerWebAppContext context) => Context = context;
 
         protected IActionResult TrySaveChanges()
         {
             try
             {
-                _context.SaveChanges();
+                Context.SaveChanges();
                 return new OkResult();
             }
             catch (DbUpdateException e)
@@ -28,7 +28,7 @@ namespace ProjectEulerWebApp.Services
         {
             try
             {
-                _context.SaveChanges();
+                Context.SaveChanges();
                 return new OkObjectResult(o);
             }
             catch (DbUpdateException e)

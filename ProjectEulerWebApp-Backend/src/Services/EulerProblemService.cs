@@ -21,30 +21,41 @@ namespace ProjectEulerWebApp.Services
     {
         public EulerProblemService(ProjectEulerWebAppContext context) : base(context) { }
 
-        public IActionResult GetList() => new OkObjectResult(_context.EulerProblem.ToList());
+        public IActionResult GetList() => new OkObjectResult(Context.EulerProblem.ToList());
 
         public IActionResult Get(int id)
         {
-            var problem = _context.EulerProblem.Find(id);
+            var problem = Context.EulerProblem.Find(id);
             if (problem == null) return new NotFoundObjectResult($"EulerProblem with number {id} not found.");
             return new OkObjectResult(problem);
         }
 
         public IActionResult CreateProblem(EulerProblem problem)
         {
-            _context.Add(problem);
+            Context.Add(problem);
             return TrySaveChanges(problem);
         }
 
         public IActionResult RemoveProblem(int id)
         {
-            var foundProblem = _context.EulerProblem.Find(id);
+            var foundProblem = Context.EulerProblem.Find(id);
             if (foundProblem == null) return new NotFoundObjectResult($"EulerProblem with number {id} not found.");
-            _context.Remove(foundProblem);
+            Context.Remove(foundProblem);
             return TrySaveChanges(foundProblem);
         }
 
-        //TODO remove this method
-        public IActionResult GetDescription(int id) => new OkObjectResult(ProjectEulerScraper.GetDescription(id));
+        public IActionResult Refresh(string idString)
+        {
+            if (string.IsNullOrWhiteSpace(idString)) return new BadRequestObjectResult("The ID is null or Empty.");
+            var id = int.Parse(idString);
+            var problem = Context.EulerProblem.Find(id);
+            if (problem == null) return new BadRequestObjectResult("No Problem with ID {id} exists yet.");
+            
+            problem.Title = ProjectEulerScraper.GetTitle(id);
+            problem.Description = ProjectEulerScraper.GetDescription(id);
+            // problem.PublishDate = ProjectEulerScraper.GetDescription(id);
+            // problem.Difficulty = ProjectEulerScraper.GetDescription(id);
+            return TrySaveChanges(problem);
+        }
     }
 }

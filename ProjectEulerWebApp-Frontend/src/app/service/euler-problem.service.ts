@@ -7,17 +7,19 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class EulerProblemService {
-  private readonly EulerProblemURL = this.baseUrl + 'api/EulerProblem/';
-  private readonly CreateURL = this.EulerProblemURL + 'create/';
-  private readonly GetURL = this.EulerProblemURL + 'get/';
-  private readonly RemoveURL = this.EulerProblemURL + 'remove/';
-  private readonly HTMLURL = this.EulerProblemURL + 'html/';
 
   constructor(
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string
   ) {
   }
+
+  private readonly EulerProblemURL = this.baseUrl + 'api/EulerProblem/';
+  private readonly CreateURL = this.EulerProblemURL + 'create/';
+  private readonly GetURL = this.EulerProblemURL + 'get/';
+  private readonly RemoveURL = this.EulerProblemURL + 'remove/';
+  private readonly RefreshURL = this.EulerProblemURL + 'refresh/';
+  private readonly options = {headers: new HttpHeaders().set('Content-Type', 'application/json')};
 
   create(problem: EulerProblemDTO): Observable<EulerProblemDTO> {
     return this.http.post<EulerProblemDTO>(this.CreateURL, problem);
@@ -35,7 +37,7 @@ export class EulerProblemService {
     return this.http.delete<EulerProblemDTO>(this.RemoveURL + id);
   }
 
-  html(id: number): Observable<string> {
-    return this.http.post<string>(this.HTMLURL, '"' + id + '"', {responseType: 'text' as 'json'});
+  refresh(id: number): Observable<EulerProblemDTO> {
+    return this.http.put<EulerProblemDTO>(this.RefreshURL, id, this.options);
   }
 }
