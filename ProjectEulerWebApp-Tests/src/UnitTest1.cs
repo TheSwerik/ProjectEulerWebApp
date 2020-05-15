@@ -1,3 +1,5 @@
+using System;
+using System.Net.NetworkInformation;
 using NUnit.Framework;
 
 namespace ProjectEulerWebApp
@@ -7,5 +9,6 @@ namespace ProjectEulerWebApp
         [SetUp] public void Setup() { }
 
         [Test] public void Test1() { Assert.Pass(); }
+
     }
 }

@@ -15,5 +15,6 @@ namespace ProjectEulerWebApp.Controllers
         [HttpPost] [Route("create")] public IActionResult Post(EulerProblem problem) => _service.CreateProblem(problem);
         [HttpDelete] [Route("remove/{id}")] public IActionResult Delete(int id) => _service.RemoveProblem(id);
         [HttpPut] [Route("refresh")] public IActionResult Refresh(object id) => _service.Refresh(id.ToString());
+        [HttpPut] [Route("refresh-all")] public IActionResult RefreshAll(object body) => _service.RefreshAll(bool.Parse(body.ToString()!));
     }
 }

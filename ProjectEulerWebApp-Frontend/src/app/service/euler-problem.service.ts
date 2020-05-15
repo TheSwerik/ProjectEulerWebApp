@@ -19,6 +19,7 @@ export class EulerProblemService {
   private readonly GetURL = this.EulerProblemURL + 'get/';
   private readonly RemoveURL = this.EulerProblemURL + 'remove/';
   private readonly RefreshURL = this.EulerProblemURL + 'refresh/';
+  private readonly RefreshAllURL = this.EulerProblemURL + 'refresh-all/';
   private readonly options = {headers: new HttpHeaders().set('Content-Type', 'application/json')};
 
   create(problem: EulerProblemDTO): Observable<EulerProblemDTO> {
@@ -39,5 +40,9 @@ export class EulerProblemService {
 
   refresh(id: number): Observable<EulerProblemDTO> {
     return this.http.put<EulerProblemDTO>(this.RefreshURL, id, this.options);
+  }
+
+  refreshAll(updateExisting: boolean): Observable<EulerProblemDTO[]> {
+    return this.http.put<EulerProblemDTO[]>(this.RefreshAllURL, updateExisting, this.options);
   }
 }

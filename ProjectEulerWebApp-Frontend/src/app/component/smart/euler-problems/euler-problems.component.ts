@@ -23,18 +23,6 @@ export class EulerProblemsComponent implements OnInit {
     this.service.getList().subscribe(list => this.problems = list);
   }
 
-  create() {
-    this.service.create(this.dummyProblem())
-      .pipe(
-        first(problem => {
-          this.logger.info('created problem:', problem);
-          return true;
-        }),
-        switchMap(() => this.service.getList())
-      )
-      .subscribe(list => this.problems = list, err => this.logger.info('failed to create Problem.', err));
-  }
-
   remove(problem: EulerProblemDTO) {
     this.service.remove(problem.id)
       .pipe(
@@ -47,22 +35,8 @@ export class EulerProblemsComponent implements OnInit {
       .subscribe(list => this.problems = list, err => this.logger.info('failed to remove Problem.', err));
   }
 
-  dummyProblem(): EulerProblemDTO {
-    return {
-      id: this.problems[this.problems.length - 1].id + 1,
-      title: 'Test2',
-      description: 'Test Description2',
-      isSolved: false,
-      solveDate: null,
-      solution: null,
-      // isSolved: true,
-      // solveDate: new Date('December 18, 1995 03:24:00'),
-      // solution: '43',
-      publishDate: null,
-      difficulty: null
-      // publishDate: new Date(),
-      // difficulty: 10
-    };
+  refreshAll() {
+    this.service.refreshAll(true).subscribe(list => this.problems = list, err => this.logger.info('Failed to refresh Problems.', err));
   }
 
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using ProjectEulerWebApp.Models.Contexts;
@@ -48,6 +49,45 @@ namespace ProjectEulerWebApp.Services
             problem.PublishDate = DateParser.ParseEulerDate(data[EulerProblemPart.PublishDate]);
             problem.Difficulty = int.Parse(Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
             return TrySaveChanges(problem);
+        }
+
+        public IActionResult RefreshAll(bool shouldOverride)
+        {
+            var ping = new Ping();
+            var result = ProjectEulerScraper.IsAvailable("https://projecteuler.net/");
+            if (!result.Result) return new NotFoundObjectResult("projecteuler.net is not reachable.");
+            
+            for (var i = 1; ; i++)
+            {
+                result = ProjectEulerScraper.IsAvailable("https://projecteuler.net/problem=" + i);
+                if (!result.Result) break;
+
+                var data = ProjectEulerScraper.GetAll(i);
+
+                var problem = Context.EulerProblem.Find(i);
+                if (problem == null) // Problem doesn't exist yet.
+                {
+                    var newProblem = new EulerProblem(
+                        i,
+                        data[EulerProblemPart.Title],
+                        data[EulerProblemPart.Description],
+                        null,
+                        null,
+                        DateParser.ParseEulerDate(data[EulerProblemPart.PublishDate]),
+                        int.Parse(Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""))
+                    );
+                    Context.Add(newProblem);
+                }
+                else
+                {
+                    problem.Title = data[EulerProblemPart.Title];
+                    problem.Description = data[EulerProblemPart.Description];
+                    problem.PublishDate = DateParser.ParseEulerDate(data[EulerProblemPart.PublishDate]);
+                    problem.Difficulty = int.Parse(Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
+                }
+            }
+
+            return TrySaveChanges(Context.EulerProblem);
         }
     }
 }

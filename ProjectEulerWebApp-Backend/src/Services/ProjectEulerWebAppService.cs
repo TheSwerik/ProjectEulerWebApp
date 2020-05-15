@@ -10,21 +10,7 @@ namespace ProjectEulerWebApp.Services
         protected readonly ProjectEulerWebAppContext Context;
         protected ProjectEulerWebAppService(ProjectEulerWebAppContext context) { Context = context; }
 
-        protected IActionResult TrySaveChanges()
-        {
-            try
-            {
-                Context.SaveChanges();
-                return new OkResult();
-            }
-            catch (DbUpdateException e)
-            {
-                Console.WriteLine(e);
-                return new BadRequestResult();
-            }
-        }
-
-        protected IActionResult TrySaveChanges(object o)
+        protected IActionResult TrySaveChanges(params object[] o)
         {
             try
             {

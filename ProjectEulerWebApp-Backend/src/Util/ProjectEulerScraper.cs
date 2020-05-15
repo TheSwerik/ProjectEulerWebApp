@@ -68,5 +68,11 @@ namespace ProjectEulerWebApp.Util
 
             return document.Trim().Insert(0, "<p>") + "</p>";
         }
+
+        public static async Task<bool> IsAvailable(string url)
+        {
+            using var response = await Client.GetAsync(url);
+            return response.IsSuccessStatusCode;
+        }
     }
 }
