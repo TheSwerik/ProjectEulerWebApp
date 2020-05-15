@@ -32,6 +32,6 @@ namespace ProjectEulerWebApp.Controllers
         //TODO remove this method
         [HttpPost]
         [Route("html")]
-        public IActionResult Html(int id) => _service.GetDescription(id);
+        public IActionResult Html(string id) => _service.GetDescription(int.Parse(id));
     }
 }

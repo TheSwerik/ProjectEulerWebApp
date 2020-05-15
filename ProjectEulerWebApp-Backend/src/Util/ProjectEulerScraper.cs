@@ -1,9 +1,12 @@
 ﻿using System;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
+
 // TODO Find Title
 // TODO Find Publish date
 // TODO Find Difficulty
@@ -16,11 +19,10 @@ namespace ProjectEulerWebApp.Util
     {
         private static readonly HttpClient Client = new HttpClient();
         private const string EulerProblemURL = "https://projecteuler.net/problem=";
-        private const string EulerDescriptionURL = "https://projecteuler.net/problem=";
+        private const string EulerDescriptionURL = "https://projecteuler.net/minimal=";
+
         private static async Task<HtmlDocument> GetDocument(string url)
         {
-            Console.WriteLine(url);
-            url = "https://projecteuler.net/minimal=11";
             using var response = await Client.GetAsync(url);
             using var content = response.Content;
             var result = await content.ReadAsStringAsync();
@@ -30,8 +32,15 @@ namespace ProjectEulerWebApp.Util
             return document;
         }
 
+        public static string GetTitle(int id)
+        {
+            var document = GetDocument(EulerProblemURL + id).Result;
+            return document.DocumentNode.ChildNodes.FindFirst("h2").InnerHtml;
+        }
+
         public static string GetDescription(int id)
         {
+            Console.WriteLine(EulerProblemURL + id);
             var document = GetDocument(EulerDescriptionURL + id).Result.Text;
             document = Regex.Replace(document, "font-size:.*;", "")
                             .Replace("<br />", "")
@@ -42,6 +51,8 @@ namespace ProjectEulerWebApp.Util
                 var matchedString = match.ToString() ?? "";
                 document = document.Replace(matchedString, matchedString.Substring(3, matchedString.Length - 7));
             }
+
+            Console.WriteLine(GetTitle(id));
 
             return document.Trim().Insert(0, "<p>") + "</p>";
         }
