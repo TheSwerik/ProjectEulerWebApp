@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ProjectEulerWebApp.Models.Contexts;
 using ProjectEulerWebApp.Models.Entities.EulerProblem;
 using ProjectEulerWebApp.Util;
@@ -11,7 +12,10 @@ namespace ProjectEulerWebApp.Services
 {
     public class EulerProblemService : ProjectEulerWebAppService
     {
-        public EulerProblemService(ProjectEulerWebAppContext context) : base(context) { }
+        public EulerProblemService(ProjectEulerWebAppContext context, ILogger<ProjectEulerWebAppService> logger) :
+            base(context, logger, 101)
+        {
+        }
 
         public IActionResult GetList() { return new OkObjectResult(Context.EulerProblems.ToList()); }
 
@@ -56,7 +60,7 @@ namespace ProjectEulerWebApp.Services
             var ping = new Ping();
             if (!ProjectEulerScraper.IsAvailable("https://projecteuler.net/").Result)
                 return new NotFoundObjectResult("projecteuler.net is not reachable.");
-            Console.WriteLine("euler reached");
+            Log("Refreshing all problems...");
             for (var i = 1;; i++)
             {
                 if (!ProjectEulerScraper.ProblemExists("https://projecteuler.net/problem=" + i)) break;
@@ -73,14 +77,11 @@ namespace ProjectEulerWebApp.Services
                                          ? null
                                          : (int?) int.Parse(
                                              Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
-                Console.WriteLine($"Problem {i} created.");
+                Log($"Problem {i} created: " + problem);
             }
 
-            Console.WriteLine("finishing...");
-
+            Log("Finished refreshing all problems.");
             return TrySaveChanges(Context.EulerProblems);
         }
-
-        //TODO LOG STUFF
     }
 }
