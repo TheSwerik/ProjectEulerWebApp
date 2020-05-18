@@ -53,15 +53,13 @@ namespace ProjectEulerWebApp.Services
 
         public IActionResult RefreshAll(bool shouldOverride)
         {
-            
             var ping = new Ping();
-            var result = ProjectEulerScraper.IsAvailable("https://projecteuler.net/").Result;
-            if (!result) return new NotFoundObjectResult("projecteuler.net is not reachable.");
+            if (!ProjectEulerScraper.IsAvailable("https://projecteuler.net/").Result)
+                return new NotFoundObjectResult("projecteuler.net is not reachable.");
             Console.WriteLine("euler reached");
             for (var i = 1;; i++)
             {
-                result = ProjectEulerScraper.ProblemExists("https://projecteuler.net/problem=" + i);
-                if (!result) break;
+                if (!ProjectEulerScraper.ProblemExists("https://projecteuler.net/problem=" + i)) break;
 
                 var data = ProjectEulerScraper.GetAll(i);
 
@@ -71,9 +69,12 @@ namespace ProjectEulerWebApp.Services
                 problem.Title = data[EulerProblemPart.Title];
                 problem.Description = data[EulerProblemPart.Description];
                 problem.PublishDate = DateParser.ParseEulerDate(data[EulerProblemPart.PublishDate]);
-                problem.Difficulty = int.Parse(Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
+                problem.Difficulty = data[EulerProblemPart.Difficulty] == null
+                                         ? null
+                                         : (int?) int.Parse(Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
                 Console.WriteLine($"Problem {i} created.");
             }
+
             Console.WriteLine($"finishing...");
 
             return TrySaveChanges(Context.EulerProblems);

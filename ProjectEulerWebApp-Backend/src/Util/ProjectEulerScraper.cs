@@ -39,13 +39,14 @@ namespace ProjectEulerWebApp.Util
         public static Dictionary<EulerProblemPart, string> GetAll(int id)
         {
             var document = GetDocument(EulerProblemURL + id).Result;
-            var info = document.DocumentNode.SelectSingleNode("(//span[@class='info']/span)[2]").InnerHtml.Split("<br>");
+            var info = document.DocumentNode.SelectSingleNode("(//span[@class='info']/span)[2]").InnerHtml
+                               .Split("<br>");
             return new Dictionary<EulerProblemPart, string>
                    {
                        {EulerProblemPart.Title, document.DocumentNode.ChildNodes.FindFirst("h2").InnerHtml},
                        {EulerProblemPart.Description, GetDescription(id)},
-                       {EulerProblemPart.PublishDate, info[0].Substring(13,info[0].IndexOf(';') - 13)},
-                       {EulerProblemPart.Difficulty, info[1]}
+                       {EulerProblemPart.PublishDate, info[0].Substring(13, info[0].IndexOf(';') - 13)},
+                       {EulerProblemPart.Difficulty, info.Length > 1 ? info[1] : null}
                    };
         }
 
@@ -78,6 +79,7 @@ namespace ProjectEulerWebApp.Util
         public static bool ProblemExists(string url)
         {
             var document = GetDocument(url).Result;
+            File.WriteAllText("test.txt", document.Text);
             return !document.Text.Contains("Problems Archives");
         }
     }
