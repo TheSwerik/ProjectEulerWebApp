@@ -79,7 +79,6 @@ namespace ProjectEulerWebApp.Util
         public static bool ProblemExists(string url)
         {
             var document = GetDocument(url).Result;
-            File.WriteAllText("test.txt", document.Text);
             return !document.Text.Contains("Problems Archives");
         }
     }
