@@ -33,14 +33,16 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
 
         public override string ToString()
         {
-            return "Id: " + Id + "\t" +
-                   "Title: " + Title + "\t" +
-                   "Description: " + Description + "\t" +
-                   "IsSolved: " + IsSolved + "\t" +
-                   "SolveDate: " + SolveDate + "\t" +
-                   "Solution: " + Solution + "\t" +
-                   "PublishDate: " + PublishDate + "\t" +
-                   "Difficulty: " + Difficulty;
+            return "{ " +
+                   "Id: " + Id + "; " +
+                   "Title: " + Title + "; " +
+                   // "Description: " + Description + "\t" +
+                   "IsSolved: " + IsSolved + "; " +
+                   "SolveDate: " + SolveDate + "; " +
+                   "Solution: " + Solution + "; " +
+                   "PublishDate: " + PublishDate + "; " +
+                   "Difficulty: " + Difficulty +
+                   " }";
         }
     }
 }

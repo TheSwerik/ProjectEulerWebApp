@@ -27,7 +27,12 @@ namespace ProjectEulerWebApp.Services
             try
             {
                 Context.SaveChanges();
-                return new OkObjectResult(o);
+                return o.Length switch
+                       {
+                           0 => new OkResult(),
+                           1 => new OkObjectResult(o[0]),
+                           _ => new OkObjectResult(o)
+                       };
             }
             catch (DbUpdateException e)
             {

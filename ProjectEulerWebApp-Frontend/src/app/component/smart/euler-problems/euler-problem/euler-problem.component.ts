@@ -34,10 +34,9 @@ export class EulerProblemComponent implements OnInit {
   }
 
   refresh() {
-    this.service.refresh(this.problem.id).subscribe(result =>
-        this.logger.info(this.problem = result),
-      err => this.logger.info('ERROR', err)
-    );
+    this.service.refresh(this.problem.id).subscribe(
+      problem => this.logger.info('Refreshed', this.problem = problem),
+      err => this.logger.info('ERROR', err));
   }
 
 }
