@@ -20,7 +20,7 @@ export class EulerProblemsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.getList().subscribe(list => this.problems = list);
+    this.service.getList().subscribe(list => this.problems = list.sort((a, b) => this.compare(a, b)));
   }
 
   remove(problem: EulerProblemDTO) {
@@ -32,11 +32,27 @@ export class EulerProblemsComponent implements OnInit {
         }),
         switchMap(() => this.service.getList())
       )
-      .subscribe(list => this.problems = list, err => this.logger.info('failed to remove Problem.', err));
+      .subscribe(list => this.problems = list.sort((a, b) => this.compare(a, b)),
+        err => this.logger.info('failed to remove Problem.', err));
+  }
+
+  compare(a: EulerProblemDTO, b: EulerProblemDTO): number {
+    if (a.id > b.id) {
+      return 1;
+    }
+    if (a.id === b.id) {
+      return 0;
+    }
+    return -1;
+  }
+
+  sort() {
+    this.problems = this.problems.sort((a, b) => this.compare(a, b));
   }
 
   refreshAll() {
-    this.service.refreshAll(true).subscribe(list => this.problems = list, err => this.logger.info('Failed to refresh Problems.', err));
+    this.service.refreshAll(true).subscribe(list => this.problems = list.sort((a, b) => this.compare(a, b)),
+      err => this.logger.info('Failed to refresh Problems.', err));
   }
 
 }
