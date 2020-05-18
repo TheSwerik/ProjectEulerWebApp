@@ -11,7 +11,7 @@ namespace ProjectEulerWebApp.Models.Contexts
         }
 
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
-        public DbSet<EulerProblem> EulerProblem { get; set; }
+        public DbSet<EulerProblem> EulerProblems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

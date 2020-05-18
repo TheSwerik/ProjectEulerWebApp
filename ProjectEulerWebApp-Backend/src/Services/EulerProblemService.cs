@@ -13,11 +13,11 @@ namespace ProjectEulerWebApp.Services
     {
         public EulerProblemService(ProjectEulerWebAppContext context) : base(context) { }
 
-        public IActionResult GetList() { return new OkObjectResult(Context.EulerProblem.ToList()); }
+        public IActionResult GetList() { return new OkObjectResult(Context.EulerProblems.ToList()); }
 
         public IActionResult Get(int id)
         {
-            var problem = Context.EulerProblem.Find(id);
+            var problem = Context.EulerProblems.Find(id);
             if (problem == null) return new NotFoundObjectResult($"EulerProblem with number {id} not found.");
             return new OkObjectResult(problem);
         }
@@ -30,7 +30,7 @@ namespace ProjectEulerWebApp.Services
 
         public IActionResult RemoveProblem(int id)
         {
-            var foundProblem = Context.EulerProblem.Find(id);
+            var foundProblem = Context.EulerProblems.Find(id);
             if (foundProblem == null) return new NotFoundObjectResult($"EulerProblem with number {id} not found.");
             Context.Remove(foundProblem);
             return TrySaveChanges(foundProblem);
@@ -40,7 +40,7 @@ namespace ProjectEulerWebApp.Services
         {
             if (string.IsNullOrWhiteSpace(idString)) return new BadRequestObjectResult("The ID is null or Empty.");
             var id = int.Parse(idString);
-            var problem = Context.EulerProblem.Find(id);
+            var problem = Context.EulerProblems.Find(id);
             if (problem == null) return new BadRequestObjectResult("No Problem with ID {id} exists yet.");
 
             var data = ProjectEulerScraper.GetAll(id);
@@ -53,28 +53,32 @@ namespace ProjectEulerWebApp.Services
 
         public IActionResult RefreshAll(bool shouldOverride)
         {
+            
             var ping = new Ping();
-            var result = ProjectEulerScraper.IsAvailable("https://projecteuler.net/");
-            if (!result.Result) return new NotFoundObjectResult("projecteuler.net is not reachable.");
-
+            var result = ProjectEulerScraper.IsAvailable("https://projecteuler.net/").Result;
+            if (!result) return new NotFoundObjectResult("projecteuler.net is not reachable.");
+            Console.WriteLine("euler reached");
             for (var i = 1;; i++)
             {
-                result = ProjectEulerScraper.IsAvailable("https://projecteuler.net/problem=" + i);
-                if (!result.Result) break;
+                result = ProjectEulerScraper.ProblemExists("https://projecteuler.net/problem=" + i);
+                if (!result) break;
 
                 var data = ProjectEulerScraper.GetAll(i);
 
-                var problem = Context.EulerProblem.Find(i);
+                var problem = Context.EulerProblems.Find(i);
                 if (problem == null) Context.Add(problem = new EulerProblem(i, null, null, null, null, null, null));
 
                 problem.Title = data[EulerProblemPart.Title];
                 problem.Description = data[EulerProblemPart.Description];
                 problem.PublishDate = DateParser.ParseEulerDate(data[EulerProblemPart.PublishDate]);
                 problem.Difficulty = int.Parse(Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
+                Console.WriteLine($"Problem {i} created.");
             }
+            Console.WriteLine($"finishing...");
 
-            return TrySaveChanges(Context.EulerProblem);
+            return TrySaveChanges(Context.EulerProblems);
         }
+
         //TODO LOG STUFF
     }
 }
