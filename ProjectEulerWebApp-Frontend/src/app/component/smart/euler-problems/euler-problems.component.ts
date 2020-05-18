@@ -36,6 +36,15 @@ export class EulerProblemsComponent implements OnInit {
         err => this.logger.info('failed to remove Problem.', err));
   }
 
+  refreshAll() {
+    this.service.refreshAll(true).subscribe(list => this.problems = list.sort((a, b) => this.compare(a, b)),
+      err => this.logger.info('Failed to refresh Problems.', err));
+  }
+
+  sort() {
+    this.problems = this.problems.sort((a, b) => this.compare(a, b));
+  }
+
   compare(a: EulerProblemDTO, b: EulerProblemDTO): number {
     if (a.id > b.id) {
       return 1;
@@ -44,15 +53,6 @@ export class EulerProblemsComponent implements OnInit {
       return 0;
     }
     return -1;
-  }
-
-  sort() {
-    this.problems = this.problems.sort((a, b) => this.compare(a, b));
-  }
-
-  refreshAll() {
-    this.service.refreshAll(true).subscribe(list => this.problems = list.sort((a, b) => this.compare(a, b)),
-      err => this.logger.info('Failed to refresh Problems.', err));
   }
 
 }
