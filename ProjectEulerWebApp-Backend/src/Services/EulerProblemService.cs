@@ -29,6 +29,7 @@ namespace ProjectEulerWebApp.Services
         public IActionResult CreateProblem(EulerProblem problem)
         {
             Context.Add(problem);
+            Info("Created Problem: " + problem);
             return TrySaveChanges(problem);
         }
 
@@ -37,6 +38,7 @@ namespace ProjectEulerWebApp.Services
             var foundProblem = Context.EulerProblems.Find(id);
             if (foundProblem == null) return new NotFoundObjectResult($"EulerProblem with number {id} not found.");
             Context.Remove(foundProblem);
+            Warn("Removed Problem: " + foundProblem);
             return TrySaveChanges(foundProblem);
         }
 
@@ -52,6 +54,7 @@ namespace ProjectEulerWebApp.Services
             problem.Description = data[EulerProblemPart.Description];
             problem.PublishDate = DateParser.ParseEulerDate(data[EulerProblemPart.PublishDate]);
             problem.Difficulty = int.Parse(Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
+            Warn("Updated Problem: " + problem);
             return TrySaveChanges(problem);
         }
 
@@ -60,7 +63,7 @@ namespace ProjectEulerWebApp.Services
             var ping = new Ping();
             if (!ProjectEulerScraper.IsAvailable("https://projecteuler.net/").Result)
                 return new NotFoundObjectResult("projecteuler.net is not reachable.");
-            Log("Refreshing all problems...");
+            Warn("Refreshing all problems...");
             for (var i = 1;; i++)
             {
                 if (!ProjectEulerScraper.ProblemExists("https://projecteuler.net/problem=" + i)) break;
@@ -77,10 +80,10 @@ namespace ProjectEulerWebApp.Services
                                          ? null
                                          : (int?) int.Parse(
                                              Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
-                Log($"Problem {i} created: " + problem);
+                Info($"Problem {i} created: " + problem);
             }
 
-            Log("Finished refreshing all problems.");
+            Info("Finished refreshing all problems.");
             return TrySaveChanges(Context.EulerProblems);
         }
     }

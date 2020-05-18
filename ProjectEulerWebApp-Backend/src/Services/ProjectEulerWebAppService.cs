@@ -38,6 +38,7 @@ namespace ProjectEulerWebApp.Services
 
         private ILogger<ProjectEulerWebAppService> Logger { get; }
 
-        public void Log(string msg) { Logger.LogInformation(_logId, msg); }
+        public void Info(string msg) { Logger.LogInformation(_logId, msg); }
+        public void Warn(string msg) { Logger.LogWarning(_logId, msg); }
     }
 }
