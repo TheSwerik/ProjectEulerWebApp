@@ -64,18 +64,19 @@ namespace ProjectEulerWebApp.Services
                 var data = ProjectEulerScraper.GetAll(i);
 
                 var problem = Context.EulerProblems.Find(i);
-                if (problem == null) Context.Add(problem = new EulerProblem(i, null, null, null, null, null, null));
+                if (problem == null) Context.Add(problem = new EulerProblem(i, null, null));
 
                 problem.Title = data[EulerProblemPart.Title];
                 problem.Description = data[EulerProblemPart.Description];
                 problem.PublishDate = DateParser.ParseEulerDate(data[EulerProblemPart.PublishDate]);
                 problem.Difficulty = data[EulerProblemPart.Difficulty] == null
                                          ? null
-                                         : (int?) int.Parse(Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
+                                         : (int?) int.Parse(
+                                             Regex.Replace(data[EulerProblemPart.Difficulty], @"[^\d]", ""));
                 Console.WriteLine($"Problem {i} created.");
             }
 
-            Console.WriteLine($"finishing...");
+            Console.WriteLine("finishing...");
 
             return TrySaveChanges(Context.EulerProblems);
         }
