@@ -42,6 +42,8 @@ export class EulerProblemComponent implements OnInit {
   }
 
   solve() {
-    console.log('solve');
+    this.service.solve(this.problem).subscribe(
+      m => m.forEach((n, s) => this.logger.info(s, ': \t', n)),
+      err => this.logger.info('ERROR', err));
   }
 }
