@@ -89,7 +89,6 @@ namespace ProjectEulerWebApp.Services
 
         public IActionResult Solve(EulerProblem problem)
         {
-            //TODO get from https://github.com/TheSwerik/ProjectEulerAnswers/releases
             var times = ProjectEulerAnswerGetter.solve(problem.Id);
             if (times.Count == 0) return new BadRequestObjectResult($"The problem {problem.Id} is not solved yet.");
             if (problem.IsSolved) return TrySaveChanges(times);

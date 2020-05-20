@@ -9,6 +9,7 @@ namespace ProjectEulerWebApp.Util
         {
             var result = new Dictionary<string, long>();
             //TODO call the packaged Jar and Exe files
+            //TODO get from https://github.com/TheSwerik/ProjectEulerAnswers/releases
             var java = GetJava(id);
             if (java != -1) result.Add("Java", java);
 
