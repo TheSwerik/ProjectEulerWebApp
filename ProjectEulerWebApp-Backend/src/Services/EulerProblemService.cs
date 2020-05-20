@@ -86,5 +86,21 @@ namespace ProjectEulerWebApp.Services
             Info("Finished refreshing all problems.");
             return TrySaveChanges(Context.EulerProblems);
         }
+
+        public IActionResult Solve(EulerProblem problem)
+        {
+            //TODO get from https://github.com/TheSwerik/ProjectEulerAnswers/releases
+            var times = ProjectEulerAnswerGetter.solve(problem.Id);
+            if (times.Count == 0) return new BadRequestObjectResult($"The problem {problem.Id} is not solved yet.");
+            if (problem.IsSolved) return TrySaveChanges(times);
+
+            
+            //TODO get times
+            //TODO get if ProjectEuler+ is completed
+            //TODO update solvedate
+            problem.IsSolved = true;
+            problem.SolveDate = new DateTime();
+            return TrySaveChanges(times);
+        }
     }
 }

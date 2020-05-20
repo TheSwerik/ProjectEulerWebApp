@@ -26,5 +26,9 @@ namespace ProjectEulerWebApp.Controllers
         [HttpPut]
         [Route("refresh-all")]
         public IActionResult RefreshAll(object body) { return _service.RefreshAll(bool.Parse(body.ToString()!)); }
+
+        [HttpPut]
+        [Route("solve")]
+        public IActionResult Solve(EulerProblem problem) { return _service.Solve(problem); }
     }
 }
