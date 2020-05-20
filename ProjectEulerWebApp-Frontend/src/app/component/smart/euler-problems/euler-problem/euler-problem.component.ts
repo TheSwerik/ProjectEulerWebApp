@@ -14,6 +14,7 @@ import {first, map, switchMap} from 'rxjs/operators';
 export class EulerProblemComponent implements OnInit {
 
   problem: EulerProblemDTO;
+  debug: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +23,7 @@ export class EulerProblemComponent implements OnInit {
   ) {
     this.problem = new EulerProblemDTO();
     this.problem.description = '';
+    this.debug = true;
   }
 
   ngOnInit() {
@@ -39,4 +41,7 @@ export class EulerProblemComponent implements OnInit {
       err => this.logger.info('ERROR', err));
   }
 
+  solve() {
+    console.log('solve');
+  }
 }
