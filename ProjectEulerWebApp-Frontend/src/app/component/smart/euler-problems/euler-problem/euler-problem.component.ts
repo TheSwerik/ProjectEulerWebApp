@@ -4,6 +4,7 @@ import {EulerProblemDTO} from '../../../../service/model/euler-problem.dto';
 import {EulerProblemService} from '../../../../service/euler-problem.service';
 import {NGXLogger} from 'ngx-logger';
 import {first, map, switchMap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-euler-problem',
@@ -44,6 +45,15 @@ export class EulerProblemComponent implements OnInit {
   solve() {
     this.service.solve(this.problem).subscribe(
       m => m.forEach((n, s) => this.logger.info(s, ': \t', n)),
-      err => this.logger.info('ERROR', err));
+      err => this.handleError(err));
+  }
+
+  handleError(error: Response) {
+    //TODO
+    if (error.status === 400) {
+      console.log('test');
+    } else {
+      console.log('test2');
+    }
   }
 }
