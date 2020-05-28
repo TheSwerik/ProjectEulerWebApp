@@ -37,7 +37,7 @@ namespace ProjectEulerWebApp.Util
                         };
             using var process = Process.Start(start);
             using var reader = process.StandardOutput;
-            Console.WriteLine(reader.ReadToEnd());
+            Console.WriteLine("java: " + reader.ReadToEnd());
             return -1;
         }
 
@@ -52,7 +52,7 @@ namespace ProjectEulerWebApp.Util
                         };
             using var process = Process.Start(start);
             using var reader = process.StandardOutput;
-            Console.WriteLine(reader.ReadToEnd());
+            Console.WriteLine("C#: " + reader.ReadToEnd());
             return -1;
         }
 
@@ -61,13 +61,13 @@ namespace ProjectEulerWebApp.Util
             var start = new ProcessStartInfo
                         {
                             FileName = "Euler.exe",
-                            Arguments = "cpp " + id,
+                            Arguments = "c " + id,
                             UseShellExecute = false,
                             RedirectStandardOutput = true
                         };
             using var process = Process.Start(start);
             using var reader = process.StandardOutput;
-            Console.WriteLine(reader.ReadToEnd());
+            Console.WriteLine("C++: " +reader.ReadToEnd());
             return -1;
         }
 
@@ -82,7 +82,7 @@ namespace ProjectEulerWebApp.Util
                         };
             using var process = Process.Start(start);
             using var reader = process.StandardOutput;
-            Console.WriteLine(reader.ReadToEnd());
+            Console.WriteLine("py: " +reader.ReadToEnd());
             return -1;
         }
     }
