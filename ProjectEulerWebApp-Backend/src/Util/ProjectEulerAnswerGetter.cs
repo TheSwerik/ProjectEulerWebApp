@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ProjectEulerWebApp.Util
 {
     public static class ProjectEulerAnswerGetter
     {
-        public static Dictionary<string, long> solve(int id)
+        public static Dictionary<string, long> Solve(int id)
         {
             var result = new Dictionary<string, long>();
             //TODO call the packaged Jar and Exe files
@@ -27,25 +28,61 @@ namespace ProjectEulerWebApp.Util
 
         private static long GetJava(int id)
         {
-            //TODO
+            var start = new ProcessStartInfo
+                        {
+                            FileName = "ProjectEulerAnswers-Java.exe",
+                            Arguments = id + "",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true
+                        };
+            using var process = Process.Start(start);
+            using var reader = process.StandardOutput;
+            Console.WriteLine(reader.ReadToEnd());
             return -1;
         }
 
         private static long GetCSharp(int id)
         {
-            //TODO
+            var start = new ProcessStartInfo
+                        {
+                            FileName = "Euler.exe",
+                            Arguments = id + "",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true
+                        };
+            using var process = Process.Start(start);
+            using var reader = process.StandardOutput;
+            Console.WriteLine(reader.ReadToEnd());
             return -1;
         }
 
         private static long GetCPlusPlus(int id)
         {
-            //TODO
+            var start = new ProcessStartInfo
+                        {
+                            FileName = "Euler.exe",
+                            Arguments = "cpp " + id,
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true
+                        };
+            using var process = Process.Start(start);
+            using var reader = process.StandardOutput;
+            Console.WriteLine(reader.ReadToEnd());
             return -1;
         }
 
         private static long GetPython(int id)
         {
-            //TODO
+            var start = new ProcessStartInfo
+                        {
+                            FileName = "Euler.exe",
+                            Arguments = "py " + id,
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true
+                        };
+            using var process = Process.Start(start);
+            using var reader = process.StandardOutput;
+            Console.WriteLine(reader.ReadToEnd());
             return -1;
         }
     }
