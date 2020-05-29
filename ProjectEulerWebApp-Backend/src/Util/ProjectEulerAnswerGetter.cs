@@ -36,6 +36,7 @@ namespace ProjectEulerWebApp.Util
 
             var python = GetPython(id);
             if (python != -1) result.Add("Python", python);
+            Console.WriteLine("PYTHON: " + python);
 
             return result;
         }
@@ -49,11 +50,8 @@ namespace ProjectEulerWebApp.Util
         private static long GetPython(int id)
         {
             var output = StartProcess("Euler.exe", "py " + id);
-            
-            Console.WriteLine("PYTHON:");
-            Console.WriteLine(output);
-            Console.WriteLine(DateTime.Parse(output).ToLongTimeString());
-            return -1;
+            if (output == null) return -1;
+            return DateTime.Parse(output).Millisecond * 1000;
         }
 
         private static string StartProcess(string exe, string args)
@@ -72,7 +70,7 @@ namespace ProjectEulerWebApp.Util
 
         private static long[] ParseResult(string exe, string args)
         {
-            var output = StartProcess(exe,args);
+            var output = StartProcess(exe, args);
             if (output == null) return new[] {-1L};
             var ms = output.Contains("ms");
             var result = output.Replace("Result:", "")
