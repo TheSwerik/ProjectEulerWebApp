@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 
@@ -9,6 +10,7 @@ namespace Initializer
         internal static void Main(string[] args)
         {
             Console.WriteLine("Starting Initialization...");
+            if (TestEulerAnswers()) return;
             DownloadEulerAnswers();
             InstallEulerAnswers();
             TestEulerAnswers();
@@ -42,20 +44,36 @@ namespace Initializer
             Console.WriteLine("Installation Completed.");
         }
 
-        private static void TestEulerAnswers()
+        private static bool TestEulerAnswers()
         {
             Console.WriteLine("Testing...");
+            var answers = new List<string>
+                          {
+                              "C#: " + StartProcess("Euler.exe", "1"),
+                              "C++: " + StartProcess("Euler.exe", "c 1"),
+                              "Python: " + StartProcess("Euler.exe", "py 1"),
+                              "Java: " + StartProcess("ProjectEulerAnswers-Java", "1")
+                          };
+            answers.ForEach(Console.Write);
+
+            return answers[0].Trim().Trim('\n').Length > 0 ||
+                   answers[1].Trim().Trim('\n').Length > 0 ||
+                   answers[2].Trim().Trim('\n').Length > 0 ||
+                   answers[3].Trim().Trim('\n').Length > 0;
+        }
+
+        private static string StartProcess(string exe, string arguments)
+        {
             var start = new ProcessStartInfo
                         {
-                            FileName = "Euler.exe",
-                            Arguments = "1",
+                            FileName = exe,
+                            Arguments = arguments,
                             UseShellExecute = false,
                             RedirectStandardOutput = true
                         };
             using var process = Process.Start(start);
             using var reader = process.StandardOutput;
-            Console.WriteLine(reader.ReadToEnd());
-            Console.WriteLine("Testing Completed.");
+            return reader.ReadToEnd();
         }
     }
 }
