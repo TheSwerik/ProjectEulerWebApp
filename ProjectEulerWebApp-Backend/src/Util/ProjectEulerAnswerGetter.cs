@@ -17,14 +17,14 @@ namespace ProjectEulerWebApp.Util
             var result = new Dictionary<string, long>();
             //TODO call the packaged Jar and Exe files
             //TODO get from https://github.com/TheSwerik/ProjectEulerAnswers/releases
-            var csharp = StartProcess("Euler", "" + id);
+            var csharp = ParseResult("Euler", "" + id);
             if (csharp[0] != -1)
             {
                 Console.WriteLine("C#: " + csharp[0] + "    " + csharp[1]);
                 result.Add("C#", csharp[1]);
             }
 
-            var java = StartProcess("ProjectEulerAnswers-Java", "" + id);
+            var java = ParseResult("ProjectEulerAnswers-Java", "" + id);
             if (java[0] != -1)
             {
                 Console.WriteLine("JAVA: " + java[0] + "    " + java[1]);
