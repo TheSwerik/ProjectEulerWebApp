@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net;
 
 namespace ProjectEulerWebApp
@@ -11,8 +12,8 @@ namespace ProjectEulerWebApp
         {
             Console.WriteLine("Starting Initialization...");
             // if (TestEulerAnswers()) return;
-            DownloadEulerAnswers();
-            InstallEulerAnswers();
+            // DownloadEulerAnswers();
+            // InstallEulerAnswers();
             TestEulerAnswers();
         }
 
@@ -40,7 +41,7 @@ namespace ProjectEulerWebApp
                             UseShellExecute = false,
                             RedirectStandardOutput = true
                         };
-            Process.Start(start).WaitForExit();
+            Process.Start(start)?.WaitForExit();
             Console.WriteLine("Installation Completed.");
         }
 
@@ -49,17 +50,14 @@ namespace ProjectEulerWebApp
             Console.WriteLine("Testing...");
             var answers = new List<string>
                           {
-                              "C#: " + StartProcess("Euler.exe", "1"),
-                              "C++: " + StartProcess("Euler.exe", "c 1"),
-                              "Python: " + StartProcess("Euler.exe", "py 1"),
+                              "C#: " + StartProcess("Euler", "1"),
+                              "C++: " + StartCppProcess("1"),
+                              "Python: " + StartProcess("Euler", "py 1"),
                               "Java: " + StartProcess("ProjectEulerAnswers-Java", "1")
                           };
             answers.ForEach(Console.Write);
 
-            return answers[0].Trim().Trim('\n').Length > 0 ||
-                   answers[1].Trim().Trim('\n').Length > 0 ||
-                   answers[2].Trim().Trim('\n').Length > 0 ||
-                   answers[3].Trim().Trim('\n').Length > 0;
+            return answers.Any(a => a.Trim().Trim('\n').Length > 0);
         }
 
         private static string StartProcess(string exe, string arguments)
@@ -69,10 +67,29 @@ namespace ProjectEulerWebApp
                             FileName = exe,
                             Arguments = arguments,
                             UseShellExecute = false,
+                            CreateNoWindow = true,
                             RedirectStandardOutput = true
                         };
             using var process = Process.Start(start);
             using var reader = process.StandardOutput;
+            return reader.ReadToEnd();
+        }
+
+        private static string StartCppProcess(string arguments)
+        {
+            var start = new ProcessStartInfo
+                        {
+                            FileName = @"C:\Program Files\Git\git-bash.exe",
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardInput = true
+                        };
+            using var process = Process.Start(start);
+            using var reader = process.StandardOutput;
+            using var writer = process.StandardInput;
+            writer.Write("Euler c " + arguments);
+            writer.Flush();
+            writer.Close();
             return reader.ReadToEnd();
         }
     }
