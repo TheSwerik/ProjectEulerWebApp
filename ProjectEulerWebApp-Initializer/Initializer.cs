@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 
-namespace Initializer
+namespace ProjectEulerWebApp
 {
     internal static class Initializer
     {
         internal static void Main(string[] args)
         {
             Console.WriteLine("Starting Initialization...");
-            if (TestEulerAnswers()) return;
+            // if (TestEulerAnswers()) return;
             DownloadEulerAnswers();
             InstallEulerAnswers();
             TestEulerAnswers();
@@ -23,7 +23,7 @@ namespace Initializer
             {
                 client.Headers.Add("user-agent", "Anything");
                 client.DownloadFile(
-                    "https://github.com/TheSwerik/ProjectEulerAnswers/releases/download/1.0.1/ProjectEulerAnswers.exe",
+                    "https://github.com/TheSwerik/ProjectEulerAnswers/releases/download/1.0.4/ProjectEulerAnswers.exe",
                     "ProjectEulerAnswers-Installer.exe");
             }
 
