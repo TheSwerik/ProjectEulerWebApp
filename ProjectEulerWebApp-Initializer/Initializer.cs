@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 
 namespace ProjectEulerWebApp
@@ -49,6 +50,7 @@ namespace ProjectEulerWebApp
                             RedirectStandardOutput = true
                         };
             Process.Start(start)?.WaitForExit();
+            File.Delete("ProjectEulerAnswers-Installer.exe");
             Console.WriteLine("Installation Completed.");
         }
 
