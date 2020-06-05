@@ -22,22 +22,14 @@ namespace ProjectEulerWebApp.Util
             var cpp = ParseResult("Euler", "c " + id);
             if (cpp[0] != -1) result.Add("C++", cpp[1]);
 
-            var python = GetPython(id);
-            if (python != -1) result.Add("Python", python);
-
+            var python = ParseResult("Euler", "py " + id);
+            if (python[0] != -1) result.Add("Python", python[1]);
             // Console.WriteLine("C#: " + csharp[0] + "    " + csharp[1] + "ms");
             // Console.WriteLine("JAVA: " + java[0] + "    " + java[1] + "ms");
             // Console.WriteLine("C++: " + cpp[0] + "    " + cpp[1] + "ms");
             // Console.WriteLine("PYTHON: " + python + "ms");
 
             return result;
-        }
-
-        private static long GetPython(int id)
-        {
-            var output = StartProcess("Euler.exe", "py " + id);
-            if (string.IsNullOrWhiteSpace(output) || output.Contains("Cannot")) return -1L;
-            return DateTime.Parse(output).Millisecond * 1000;
         }
 
         private static string StartProcess(string exe, string args)
@@ -65,6 +57,7 @@ namespace ProjectEulerWebApp.Util
                                .Replace("ms", "")
                                .Replace("s", "")
                                .Split("Time:");
+            Console.WriteLine(output);
             return new[] {long.Parse(result[0]), (long) (double.Parse(result[1]) * (ms ? 1000 : 1000000))};
         }
     }
