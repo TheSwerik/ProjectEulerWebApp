@@ -14,29 +14,21 @@ namespace ProjectEulerWebApp.Util
             var result = new Dictionary<string, long>();
 
             var csharp = ParseResult("Euler", "" + id);
-            if (csharp[0] != -1)
-            {
-                Console.WriteLine("C#: " + csharp[0] + "    " + csharp[1] + "ms");
-                result.Add("C#", csharp[1]);
-            }
+            if (csharp[0] != -1) result.Add("C#", csharp[1]);
 
             var java = ParseResult("ProjectEulerAnswers-Java", "" + id);
-            if (java[0] != -1)
-            {
-                Console.WriteLine("JAVA: " + java[0] + "    " + java[1] + "ms");
-                result.Add("Java", java[1]);
-            }
+            if (java[0] != -1) result.Add("Java", java[1]);
 
             var cpp = ParseResult("Euler", "c " + id);
-            if (cpp[0] != -1)
-            {
-                Console.WriteLine("C++: " + cpp[0] + "    " + cpp[1] + "ms");
-                result.Add("C++", cpp[1]);
-            }
+            if (cpp[0] != -1) result.Add("C++", cpp[1]);
 
             var python = GetPython(id);
             if (python != -1) result.Add("Python", python);
-            Console.WriteLine("PYTHON: " + python + "ms");
+
+            // Console.WriteLine("C#: " + csharp[0] + "    " + csharp[1] + "ms");
+            // Console.WriteLine("JAVA: " + java[0] + "    " + java[1] + "ms");
+            // Console.WriteLine("C++: " + cpp[0] + "    " + cpp[1] + "ms");
+            // Console.WriteLine("PYTHON: " + python + "ms");
 
             return result;
         }
