@@ -32,7 +32,7 @@ namespace ProjectEulerWebApp
             {
                 client.Headers.Add("user-agent", "Anything");
                 client.DownloadFile(
-                    "https://github.com/TheSwerik/ProjectEulerAnswers/releases/download/1.0.4/ProjectEulerAnswers.exe",
+                    "https://github.com/TheSwerik/ProjectEulerAnswers/releases/download/1.0.5/ProjectEulerAnswers.exe",
                     "ProjectEulerAnswers-Installer.exe");
             }
 
