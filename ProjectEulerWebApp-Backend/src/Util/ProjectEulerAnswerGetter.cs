@@ -15,8 +15,7 @@ namespace ProjectEulerWebApp.Util
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             var result = new Dictionary<string, long>();
-            //TODO call the packaged Jar and Exe files
-            //TODO get from https://github.com/TheSwerik/ProjectEulerAnswers/releases
+
             var csharp = ParseResult("Euler", "" + id);
             if (csharp[0] != -1)
             {
@@ -31,20 +30,18 @@ namespace ProjectEulerWebApp.Util
                 result.Add("Java", java[1]);
             }
 
-            var cpp = GetCPlusPlus(id);
-            if (cpp != -1) result.Add("C++", cpp);
+            var cpp = ParseResult("Euler", "c " + id);
+            if (cpp[0] != -1)
+            {
+                Console.WriteLine("C++: " + cpp[0] + "    " + cpp[1]);
+                result.Add("C++", cpp[1]);
+            }
 
             var python = GetPython(id);
             if (python != -1) result.Add("Python", python);
             Console.WriteLine("PYTHON: " + python);
 
             return result;
-        }
-
-        private static long GetCPlusPlus(int id)
-        {
-            Console.WriteLine("c++: " + StartProcess("Euler.exe", "c " + id));
-            return -1;
         }
 
         private static long GetPython(int id)
