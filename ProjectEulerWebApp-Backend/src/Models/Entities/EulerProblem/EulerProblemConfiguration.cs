@@ -15,6 +15,12 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
             builder.Property(prop => prop.Description)
                    .IsRequired();
 
+            builder.Property(prop => prop.PublishDate)
+                   .HasColumnType("TIMESTAMP(0)")
+                   .IsRequired();
+
+            builder.Property(prop => prop.Difficulty);
+
             builder.Property(prop => prop.IsSolved)
                    .IsRequired();
 
@@ -22,11 +28,10 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
                    .HasColumnType("TIMESTAMP(0)");
 
             builder.Property(prop => prop.Solution);
-
-            builder.Property(prop => prop.PublishDate)
-                   .HasColumnType("TIMESTAMP(0)");
-
-            builder.Property(prop => prop.Difficulty);
+            
+            builder.Property(prop => prop.Times);
+            
+            builder.Property(prop => prop.EulerPlus);
         }
     }
 }

@@ -93,10 +93,12 @@ namespace ProjectEulerWebApp.Services
             if (times.Count == 0) return new BadRequestObjectResult($"The problem {problem.Id} is not solved yet.");
             if (problem.IsSolved) return TrySaveChanges(times);
 
+            problem.Times = new long[4];
+            if (!times.TryGetValue("C#", out problem.Times[0])) problem.Times[0] = -1;
+            if (!times.TryGetValue("Java", out problem.Times[1])) problem.Times[1] = -1;
+            if (!times.TryGetValue("Cpp", out problem.Times[2])) problem.Times[2] = -1;
+            if (!times.TryGetValue("Python", out problem.Times[3])) problem.Times[3] = -1;
             
-            //TODO get times
-            //TODO get if ProjectEuler+ is completed
-            //TODO update solvedate
             problem.IsSolved = true;
             problem.SolveDate = new DateTime();
             return TrySaveChanges(times);
