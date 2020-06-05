@@ -11,7 +11,7 @@ namespace ProjectEulerWebApp
         internal static void Main(string[] args)
         {
             Console.WriteLine("Starting Initialization...");
-            // if (TestEulerAnswers()) return;
+            if (TestEulerAnswers()) return;
             DownloadEulerAnswers();
             InstallEulerAnswers();
             TestEulerAnswers();
@@ -57,7 +57,7 @@ namespace ProjectEulerWebApp
                           };
             answers.ForEach(Console.Write);
 
-            return answers.Any(a => a.Trim().Trim('\n').Length > 0);
+            return answers.Any(a => a.Trim().Trim('\n').Length > 8);
         }
 
         private static string StartProcess(string exe, string arguments)
