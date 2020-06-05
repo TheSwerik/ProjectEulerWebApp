@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
 
 namespace ProjectEulerWebApp
 {
     internal static class Initializer
     {
-        internal static void Main(string[] args)
+        internal static void Main()
         {
             Console.WriteLine("Starting Initialization...");
-            if (TestEulerAnswers()) return;
-            DownloadEulerAnswers();
-            InstallEulerAnswers();
-            TestEulerAnswers();
+            try
+            {
+                TestEulerAnswers();
+            }
+            catch (Win32Exception)
+            {
+                Console.WriteLine("ProjectEulerAnswers is not installed.");
+                DownloadEulerAnswers();
+                InstallEulerAnswers();
+                TestEulerAnswers();
+            }
         }
 
         private static void DownloadEulerAnswers()
@@ -45,7 +52,7 @@ namespace ProjectEulerWebApp
             Console.WriteLine("Installation Completed.");
         }
 
-        private static bool TestEulerAnswers()
+        private static void TestEulerAnswers()
         {
             Console.WriteLine("Testing...");
             var answers = new List<string>
@@ -56,8 +63,6 @@ namespace ProjectEulerWebApp
                               "Java: " + StartProcess("ProjectEulerAnswers-Java", "1")
                           };
             answers.ForEach(Console.Write);
-
-            return answers.Any(a => a.Trim().Trim('\n').Length > 8);
         }
 
         private static string StartProcess(string exe, string arguments)
@@ -72,8 +77,8 @@ namespace ProjectEulerWebApp
                             RedirectStandardOutput = true
                         };
             using var process = Process.Start(start);
-            using var reader = process.StandardOutput;
-            return reader.ReadToEnd();
+            using var reader = process?.StandardOutput;
+            return reader?.ReadToEnd();
         }
     }
 }
