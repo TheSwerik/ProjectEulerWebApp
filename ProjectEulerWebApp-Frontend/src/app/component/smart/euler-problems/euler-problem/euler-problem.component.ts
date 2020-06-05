@@ -49,11 +49,10 @@ export class EulerProblemComponent implements OnInit {
   }
 
   handleError(error: Response) {
-    // TODO
     if (error.status === 400) {
-      console.log('test');
+      alert('Problem not solved yet.');
     } else {
-      console.log('test2');
+      console.log(error);
     }
   }
 }

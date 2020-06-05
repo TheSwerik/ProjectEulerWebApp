@@ -16,27 +16,27 @@ namespace ProjectEulerWebApp.Util
             var csharp = ParseResult("Euler", "" + id);
             if (csharp[0] != -1)
             {
-                Console.WriteLine("C#: " + csharp[0] + "    " + csharp[1]);
+                Console.WriteLine("C#: " + csharp[0] + "    " + csharp[1] + "ms");
                 result.Add("C#", csharp[1]);
             }
 
             var java = ParseResult("ProjectEulerAnswers-Java", "" + id);
             if (java[0] != -1)
             {
-                Console.WriteLine("JAVA: " + java[0] + "    " + java[1]);
+                Console.WriteLine("JAVA: " + java[0] + "    " + java[1] + "ms");
                 result.Add("Java", java[1]);
             }
 
             var cpp = ParseResult("Euler", "c " + id);
             if (cpp[0] != -1)
             {
-                Console.WriteLine("C++: " + cpp[0] + "    " + cpp[1]);
+                Console.WriteLine("C++: " + cpp[0] + "    " + cpp[1] + "ms");
                 result.Add("C++", cpp[1]);
             }
 
             var python = GetPython(id);
             if (python != -1) result.Add("Python", python);
-            Console.WriteLine("PYTHON: " + python);
+            Console.WriteLine("PYTHON: " + python + "ms");
 
             return result;
         }
@@ -66,7 +66,8 @@ namespace ProjectEulerWebApp.Util
         private static long[] ParseResult(string exe, string args)
         {
             var output = StartProcess(exe, args);
-            if (string.IsNullOrWhiteSpace(output) || output.Contains("Cannot") || output.Contains("not valid")) return new[] {-1L};
+            if (string.IsNullOrWhiteSpace(output) || output.Contains("Cannot") || output.Contains("not valid"))
+                return new[] {-1L};
             var ms = output.Contains("ms");
             var result = output.Replace("Result:", "")
                                .Replace("ms", "")
