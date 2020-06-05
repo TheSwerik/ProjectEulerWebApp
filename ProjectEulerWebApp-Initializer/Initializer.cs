@@ -12,8 +12,8 @@ namespace ProjectEulerWebApp
         {
             Console.WriteLine("Starting Initialization...");
             // if (TestEulerAnswers()) return;
-            // DownloadEulerAnswers();
-            // InstallEulerAnswers();
+            DownloadEulerAnswers();
+            InstallEulerAnswers();
             TestEulerAnswers();
         }
 
@@ -51,7 +51,7 @@ namespace ProjectEulerWebApp
             var answers = new List<string>
                           {
                               "C#: " + StartProcess("Euler", "1"),
-                              "C++: " + StartCppProcess("1"),
+                              "C++2: " + StartProcess("Euler", "1"),
                               "Python: " + StartProcess("Euler", "py 1"),
                               "Java: " + StartProcess("ProjectEulerAnswers-Java", "1")
                           };
@@ -72,24 +72,6 @@ namespace ProjectEulerWebApp
                         };
             using var process = Process.Start(start);
             using var reader = process.StandardOutput;
-            return reader.ReadToEnd();
-        }
-
-        private static string StartCppProcess(string arguments)
-        {
-            var start = new ProcessStartInfo
-                        {
-                            FileName = @"C:\Program Files\Git\git-bash.exe",
-                            UseShellExecute = false,
-                            RedirectStandardOutput = true,
-                            RedirectStandardInput = true
-                        };
-            using var process = Process.Start(start);
-            using var reader = process.StandardOutput;
-            using var writer = process.StandardInput;
-            writer.Write("Euler c " + arguments);
-            writer.Flush();
-            writer.Close();
             return reader.ReadToEnd();
         }
     }
