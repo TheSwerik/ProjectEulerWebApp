@@ -57,7 +57,7 @@ namespace ProjectEulerWebApp.Util
                                .Replace("ms", "")
                                .Replace("s", "")
                                .Split("Time:");
-            Console.WriteLine(output);
+            // Console.WriteLine(output);
             return new[] {long.Parse(result[0]), (long) (double.Parse(result[1]) * (ms ? 1000 : 1000000))};
         }
     }
