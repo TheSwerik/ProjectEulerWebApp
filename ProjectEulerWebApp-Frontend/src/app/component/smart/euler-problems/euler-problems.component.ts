@@ -8,6 +8,7 @@ import {NGXLogger} from 'ngx-logger';
 
 @Component({
   selector: 'app-euler-problems',
+  styleUrls: ['./euler-problems.component.scss'],
   templateUrl: './euler-problems.component.html'
 })
 export class EulerProblemsComponent implements OnInit {

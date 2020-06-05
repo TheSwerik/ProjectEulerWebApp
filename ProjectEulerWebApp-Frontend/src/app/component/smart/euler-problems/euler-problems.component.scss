@@ -1,0 +1,9 @@
+ngb-pagination ::ng-deep ul > li:not(.active) > a {
+  width: 2.3vw !important;
+  text-align: center;
+}
+
+ngb-pagination ::ng-deep ul > li.active > a {
+  width: 2.3vw !important;
+  text-align: center;
+}

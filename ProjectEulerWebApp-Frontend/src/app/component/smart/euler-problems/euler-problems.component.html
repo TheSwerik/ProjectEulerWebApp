@@ -28,8 +28,9 @@
     [pageSize]="pageSize"
     [collectionSize]="problems === undefined ? 1 : problems.length"
     [boundaryLinks]="true"
-    [maxSize]="17"
+    [maxSize]="19"
     [rotate]="true"
+    [ellipses]="false"
   ></ngb-pagination>
   <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
     <option [ngValue]="25">25</option>
