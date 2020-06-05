@@ -48,8 +48,8 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
                    "IsSolved: " + IsSolved + "; " +
                    "SolveDate: " + SolveDate + "; " +
                    "Solution: " + Solution + "; " +
-                   "Solution: " + Times + "; " +
-                   "Solution: " + EulerPlus +
+                   "Times: " + Times + "; " +
+                   "ProjectEuler+: " + EulerPlus +
                    " }";
         }
     }
