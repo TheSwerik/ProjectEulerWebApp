@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ProjectEulerWebApp.Models.Entities.EulerProblem
 {
@@ -11,7 +12,7 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
                             string solution = null,
                             DateTime? publishDate = null,
                             int? difficulty = null,
-                            long[]? times = null, 
+                            long[]? times = null,
                             bool eulerPlus = false)
         {
             Id = id;
@@ -48,7 +49,7 @@ namespace ProjectEulerWebApp.Models.Entities.EulerProblem
                    "IsSolved: " + IsSolved + "; " +
                    "SolveDate: " + SolveDate + "; " +
                    "Solution: " + Solution + "; " +
-                   "Times: " + Times + "; " +
+                   "Times: " + string.Join("ms ", Times ?? Array.Empty<long>()) + "; " +
                    "ProjectEuler+: " + EulerPlus +
                    " }";
         }

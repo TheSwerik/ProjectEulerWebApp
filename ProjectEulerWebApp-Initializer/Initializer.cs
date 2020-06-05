@@ -51,7 +51,7 @@ namespace ProjectEulerWebApp
             var answers = new List<string>
                           {
                               "C#: " + StartProcess("Euler", "1"),
-                              "C++2: " + StartProcess("Euler", "1"),
+                              "C++: " + StartProcess("Euler", "c 1"),
                               "Python: " + StartProcess("Euler", "py 1"),
                               "Java: " + StartProcess("ProjectEulerAnswers-Java", "1")
                           };
@@ -68,6 +68,7 @@ namespace ProjectEulerWebApp
                             Arguments = arguments,
                             UseShellExecute = false,
                             CreateNoWindow = true,
+                            WorkingDirectory = @"C:\Program Files\ProjectEulerAnswers\bin",
                             RedirectStandardOutput = true
                         };
             using var process = Process.Start(start);

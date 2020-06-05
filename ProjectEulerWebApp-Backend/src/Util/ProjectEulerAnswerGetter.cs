@@ -58,6 +58,7 @@ namespace ProjectEulerWebApp.Util
                             FileName = exe,
                             Arguments = args,
                             UseShellExecute = false,
+                            WorkingDirectory = @"C:\Program Files\ProjectEulerAnswers\bin",
                             RedirectStandardOutput = true
                         };
             using var process = Process.Start(start);
@@ -74,6 +75,7 @@ namespace ProjectEulerWebApp.Util
                                .Replace("ms", "")
                                .Replace("s", "")
                                .Split("Time:");
+            Console.WriteLine(exe + args + "\t" + output + "\t" + string.Join(" ", result));
             return new[] {long.Parse(result[0]), (long) (double.Parse(result[1]) * (ms ? 1000 : 1000000))};
         }
     }
