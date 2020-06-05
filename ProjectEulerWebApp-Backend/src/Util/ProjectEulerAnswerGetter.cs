@@ -2,9 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Numerics;
-using System.Runtime.Intrinsics;
 using System.Threading;
 
 namespace ProjectEulerWebApp.Util
@@ -47,7 +44,7 @@ namespace ProjectEulerWebApp.Util
         private static long GetPython(int id)
         {
             var output = StartProcess("Euler.exe", "py " + id);
-            if (output == null) return -1;
+            if (string.IsNullOrWhiteSpace(output) || output.Contains("Cannot")) return -1L;
             return DateTime.Parse(output).Millisecond * 1000;
         }
 
@@ -69,13 +66,12 @@ namespace ProjectEulerWebApp.Util
         private static long[] ParseResult(string exe, string args)
         {
             var output = StartProcess(exe, args);
-            if (output == null) return new[] {-1L};
+            if (string.IsNullOrWhiteSpace(output) || output.Contains("Cannot") || output.Contains("not valid")) return new[] {-1L};
             var ms = output.Contains("ms");
             var result = output.Replace("Result:", "")
                                .Replace("ms", "")
                                .Replace("s", "")
                                .Split("Time:");
-            Console.WriteLine(exe + args + "\t" + output + "\t" + string.Join(" ", result));
             return new[] {long.Parse(result[0]), (long) (double.Parse(result[1]) * (ms ? 1000 : 1000000))};
         }
     }
