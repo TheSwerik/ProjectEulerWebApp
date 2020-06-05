@@ -13,6 +13,7 @@ import {LoggerModule, NgxLoggerLevel} from 'ngx-logger';
 import {DifficultyPipe} from './util/difficulty.pipe';
 import {DatePipe} from './util/date.pipe';
 import {SafeHtmlPipe} from './util/safe-html.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -48,7 +49,8 @@ const smartComponents: any[] = [
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
-    thirdPartyModules
+    thirdPartyModules,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

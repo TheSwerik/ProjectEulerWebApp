@@ -12,11 +12,15 @@ import {NGXLogger} from 'ngx-logger';
 })
 export class EulerProblemsComponent implements OnInit {
   public problems: EulerProblemDTO[];
+  page: number;
+  pageSize: number;
 
   constructor(
     private service: EulerProblemService,
     private logger: NGXLogger,
   ) {
+    this.page = 1;
+    this.pageSize = 50;
   }
 
   ngOnInit(): void {
