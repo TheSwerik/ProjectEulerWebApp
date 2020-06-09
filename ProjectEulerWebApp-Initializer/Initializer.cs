@@ -12,6 +12,7 @@ namespace ProjectEulerWebApp
         internal static void Main()
         {
             Console.WriteLine("Starting Initialization...");
+                DownloadEulerAnswers();
             try
             {
                 TestEulerAnswers();
@@ -19,7 +20,6 @@ namespace ProjectEulerWebApp
             catch (Win32Exception)
             {
                 Console.WriteLine("ProjectEulerAnswers is not installed.");
-                DownloadEulerAnswers();
                 InstallEulerAnswers();
                 TestEulerAnswers();
             }
@@ -32,7 +32,7 @@ namespace ProjectEulerWebApp
             {
                 client.Headers.Add("user-agent", "Anything");
                 client.DownloadFile(
-                    "https://github.com/TheSwerik/ProjectEulerAnswers/releases/download/1.0.5/ProjectEulerAnswers.exe",
+                    "https://github.com/TheSwerik/ProjectEulerAnswers/releases/latest/download/ProjectEulerAnswers.exe",
                     "ProjectEulerAnswers-Installer.exe");
             }
 
