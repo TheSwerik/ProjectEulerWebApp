@@ -1,2 +1,3 @@
-FROM mcr.microsoft.com/windows/nanoserver:1809-amd64
+FROM ubuntu
 CMD echo Hello World!
+CMD dotnet
