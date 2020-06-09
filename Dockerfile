@@ -1,7 +1,6 @@
 FROM centos
 CMD echo Hello World!
 CMD sudo yum update -y
-RUN apt-get install apt-transport-https
-RUN apt-get update
-RUN apt-get install dotnet-sdk-3.1
-RUN dotnet
+CMD sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+CMD sudo yum install dotnet-runtime-3.1
+CMD sudo yum install aspnetcore-runtime-3.1
