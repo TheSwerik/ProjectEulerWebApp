@@ -40,21 +40,22 @@ for:
       file_version: '$(my_version_number)'
       informational_version: '$(my_version_number)'
 
-#    after_test:
-#      - ps: dotnet publish "-p:PublishProfile=$($env:project_name)\$($env:project_name).csproj" -c:Release -o:Publish\bin\64bit -v:m -r:win-x64 --self-contained:true -p:PublishSingleFile=false -p:PublishTrimmed=true
-#
-#    artifacts:
-#      - path: /Installer/$(application_name).exe
-#        name: WinInstaller
-#
-#    deploy:
-#      - provider: GitHub
-#        release: $(my_version_number)
-#        auth_token: # encrypted token:
-#          secure: HESVuhwKdUbPpbBsQrWslB7GYNy5r03/MN/enpu7UWbY886bOE+EpbEFwAVMrtLO #REPLACE WITH TOKEN
-#        artifact: WinInstaller, MacInstaller, LinuxInstaller
-#        draft: false
-#        prerelease: false
-#        force_update: false
-#        on:
-#          branch: master
+    after_test:
+      - ps: dotnet publish "-p:PublishProfile=$($env:project_name)-Backend\$($env:project_name)-Backend.csproj" -c:Release -o:Publish -v:m -r:win-x64 --self-contained:true -p:PublishSingleFile=false -p:PublishTrimmed=true
+      - '7z a -tzip %application_name%.zip Publish -mx0'
+      
+    artifacts:
+      - path: /$(application_name).zip
+        name: Archive
+
+    deploy:
+      - provider: GitHub
+        release: $(my_version_number)
+        auth_token: # encrypted token:
+          secure: HESVuhwKdUbPpbBsQrWslB7GYNy5r03/MN/enpu7UWbY886bOE+EpbEFwAVMrtLO #REPLACE WITH TOKEN
+        artifact: Archive
+        draft: false
+        prerelease: false
+        force_update: false
+        on:
+          branch: master
